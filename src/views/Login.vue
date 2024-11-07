@@ -1,0 +1,98 @@
+<template>
+  <div class="login-page">
+    <div class="login-card">
+      <div class="header">
+        <h2>登录</h2>
+      </div>
+
+      <el-form :model="loginForm" status-icon :rules="rules" ref="loginForm" label-width="80px">
+        <!-- 用户名输入 -->
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="loginForm.username" autocomplete="off" placeholder="请输入用户名" />
+        </el-form-item>
+
+        <!-- 密码输入 -->
+        <el-form-item label="密码" prop="password">
+          <el-input
+              v-model="loginForm.password"
+              type="password"
+              autocomplete="off"
+              placeholder="请输入密码"
+          />
+        </el-form-item>
+
+        <!-- 提交按钮 -->
+        <el-form-item>
+          <el-button type="primary" @click="handleLogin">登录</el-button>
+          <el-button @click="resetForm">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'LoginView',
+  data() {
+    return {
+      loginForm: {
+        username: '',
+        password: ''
+      },
+      rules: {
+        username: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
+      }
+    }
+  },
+  methods: {
+    handleLogin() {
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          alert('登录成功！')
+          // 执行登录逻辑，例如 API 调用
+        } else {
+          alert('请填写必填项。')
+          return false
+        }
+      })
+    },
+    resetForm() {
+      this.$refs.loginForm.resetFields()
+    }
+  }
+}
+</script>
+
+<style scoped>
+.login-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f7f7f7;
+}
+
+.login-card {
+  width: 400px;
+  padding: 40px;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.header h2 {
+  margin: 0;
+  color: #333;
+}
+</style>

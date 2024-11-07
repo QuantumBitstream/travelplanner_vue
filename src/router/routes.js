@@ -28,11 +28,11 @@ export const publicRoutes = [
         name: 'Community',
         component: () => import('@/views/Community.vue')
     },
-    // {
-    //     path: '/login',
-    //     name: 'Login',
-    //     component: () => import('@/views/Login.vue')
-    // },
+    {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/views/Login.vue')
+    },
     // {
     //     path: '/register',
     //     name: 'Register',
