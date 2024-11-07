@@ -18,11 +18,11 @@ export const publicRoutes = [
         name: 'Destinations',
         component: () => import('@/views/Destinations.vue')
     },
-    // {
-    //     path: '/trip-planner',
-    //     name: 'TripPlanner',
-    //     component: () => import('@/views/TripPlanner.vue')
-    // },
+    {
+        path: '/trip-planner',
+        name: 'TripPlanner',
+        component: () => import('@/views/TripPlanner.vue')
+    },
     // {
     //     path: '/community',
     //     name: 'Community',
