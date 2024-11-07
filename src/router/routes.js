@@ -23,11 +23,11 @@ export const publicRoutes = [
         name: 'TripPlanner',
         component: () => import('@/views/TripPlanner.vue')
     },
-    // {
-    //     path: '/community',
-    //     name: 'Community',
-    //     component: () => import('@/views/Community.vue')
-    // },
+    {
+        path: '/community',
+        name: 'Community',
+        component: () => import('@/views/Community.vue')
+    },
     // {
     //     path: '/login',
     //     name: 'Login',
