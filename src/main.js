@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from "@/router";
 import ElementPlus from "element-plus";
+import TlbsMap from 'tlbs-map-vue';
 import 'element-plus/dist/index.css'
 import '@/assets/css/global.css'  // 导入eve_vue全局样式
 const app = createApp(App)
@@ -30,4 +31,5 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(store)
     .use(router)
     .use(ElementPlus)
+    .use(TlbsMap)  // https://github.com/Tencent/tlbs-map-vue
     .mount('#app')
