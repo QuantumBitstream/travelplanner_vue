@@ -25,6 +25,7 @@ export default {
       zoom: 10,
       geometries: [
         { styleId: 'marker', position: { lat: 39.91799, lng: 116.397027 } },
+        { styleId: 'marker', position: { lat: 34.0522, lng: 116.397027 } },
       ],
       styles: {
         marker: {
