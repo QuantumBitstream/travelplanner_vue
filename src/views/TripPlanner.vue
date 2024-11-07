@@ -51,11 +51,18 @@
       </div>
     </el-card>
   </div>
+
+  <div>
+    <OverlayPin></OverlayPin>
+  </div>
 </template>
 
 <script>
+import OverlayPin from "@/components/OverlayPin.vue";
+
 export default {
   name: 'TripPlanner',
+  components: {OverlayPin},
   data() {
     return {
       destinations: [
