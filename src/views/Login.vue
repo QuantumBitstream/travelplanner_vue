@@ -54,8 +54,10 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
+          // 模拟登录成功
           alert('登录成功！')
-          // 执行登录逻辑，例如 API 调用
+          // 跳转到个人资料页面
+          this.$router.push('/profile')
         } else {
           alert('请填写必填项。')
           return false
