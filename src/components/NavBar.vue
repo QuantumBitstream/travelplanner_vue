@@ -57,8 +57,8 @@ export default {
         { name: '社区', path: '/community' }
       ],
       showUserMenu: false,
-      isLoggedIn: false, // 实际项目中应该从vuex或其他状态管理中获取
-      username: '用户名',
+      isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
+      username: localStorage.getItem('username') || '用户名',
       userAvatar: 'https://example.com/avatar.jpg'
     }
   },
@@ -72,9 +72,10 @@ export default {
       this.showUserMenu = !this.showUserMenu
     },
     handleLogout() {
-      // 实现登出逻辑
-      console.log('用户登出')
-      this.showUserMenu = false
+      localStorage.removeItem('isLoggedIn')
+      localStorage.removeItem('username')
+      this.isLoggedIn = false
+      this.$router.push('/')
     }
   },
   mounted() {
@@ -89,6 +90,7 @@ export default {
 </script>
 
 <style scoped>
+/* 样式同之前提供的内容 */
 .navbar {
   position: fixed;
   top: 0;

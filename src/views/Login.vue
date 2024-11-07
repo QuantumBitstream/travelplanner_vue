@@ -23,7 +23,7 @@
 
         <!-- 提交按钮 -->
         <el-form-item>
-          <el-button type="primary" @click="handleLogin">登录</el-button>
+          <el-button type="primary" @click="handleLogin">立即登录</el-button>
           <el-button @click="resetForm">重置</el-button>
         </el-form-item>
       </el-form>
@@ -56,6 +56,8 @@ export default {
         if (valid) {
           // 模拟登录成功
           alert('登录成功！')
+          localStorage.setItem('isLoggedIn', 'true')
+          localStorage.setItem('username', this.loginForm.username)
           // 跳转到个人资料页面
           this.$router.push('/profile')
         } else {
