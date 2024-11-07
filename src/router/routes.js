@@ -13,11 +13,11 @@ export const publicRoutes = [
         name: 'Home',
         component: () => import('@/views/Home.vue')
     },
-    // {
-    //     path: '/destinations',
-    //     name: 'Destinations',
-    //     component: () => import('@/views/Destinations.vue')
-    // },
+    {
+        path: '/destinations',
+        name: 'Destinations',
+        component: () => import('@/views/Destinations.vue')
+    },
     // {
     //     path: '/trip-planner',
     //     name: 'TripPlanner',
