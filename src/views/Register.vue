@@ -81,6 +81,8 @@ export default {
       this.$refs.registerForm.validate((valid) => {
         if (valid) {
           alert('注册成功！')
+          // 跳转到登录页面
+          this.$router.push('/login')
           // 这里可以处理注册逻辑，比如调用API
         } else {
           alert('请填写正确的信息。')
