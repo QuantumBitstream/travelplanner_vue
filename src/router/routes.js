@@ -43,11 +43,11 @@ export const publicRoutes = [
         name: 'Profile',
         component: () => import('@/views/Profile.vue')
     },
-    // {
-    //     path: '/my-trips',
-    //     name: 'MyTrips',
-    //     component: () => import('@/views/MyTrips.vue')
-    // }
+    {
+        path: '/my-trips',
+        name: 'MyTrips',
+        component: () => import('@/views/MyTrips.vue')
+    }
 ];
 
 // 需要权限的路由
