@@ -1,6 +1,10 @@
 <template>
   <div id="app">
+
+    <!--    导航栏-->
     <nav-bar />
+    <!--    /导航栏-->
+
     <div class="main-content">
       <router-view />
     </div>
