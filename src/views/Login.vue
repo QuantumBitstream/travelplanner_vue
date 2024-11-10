@@ -32,6 +32,8 @@
 </template>
 
 <script>
+import store from "@/store";
+
 export default {
   name: 'LoginView',
   data() {
@@ -58,8 +60,9 @@ export default {
           alert('登录成功！')
           localStorage.setItem('isLoggedIn', 'true')
           localStorage.setItem('username', this.loginForm.username)
-          // 跳转到个人资料页面
-          this.$router.push('/profile')
+          store.dispatch('user/login', { username: this.loginForm.username })
+          // 跳转到Home页面
+          this.$router.push('/')
         } else {
           alert('请填写必填项。')
           return false

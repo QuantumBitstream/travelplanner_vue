@@ -24,10 +24,10 @@
 
       <!-- 用户信息/登录按钮 -->
       <div class="navbar-user">
-        <template v-if="isLoggedIn">
+        <template v-if="store.state.user.isLoggedIn">
           <div class="user-info" @click="toggleUserMenu">
-            <img :src="userAvatar" alt="用户头像" class="user-avatar">
-            <span class="username">{{ username }}</span>
+            <img :src="store.state.user.userAvatar" alt="用户头像" class="user-avatar">
+            <span class="username">{{ store.state.user.username }}</span>
             <!-- 用户下拉菜单 -->
             <div v-show="showUserMenu" class="user-menu">
               <router-link to="/profile" class="menu-item">个人中心</router-link>
@@ -46,6 +46,8 @@
 </template>
 
 <script>
+import store from "@/store";
+
 export default {
   name: 'NavBar',
   data() {
@@ -63,6 +65,9 @@ export default {
     }
   },
   computed: {
+    store() {
+      return store
+    },
     currentPath() {
       return this.$route.path
     }
@@ -72,6 +77,7 @@ export default {
       this.showUserMenu = !this.showUserMenu
     },
     handleLogout() {
+      store.dispatch('user/logout')
       localStorage.removeItem('isLoggedIn')
       localStorage.removeItem('username')
       this.isLoggedIn = false
