@@ -4,6 +4,7 @@ import { createStore } from 'vuex'
 // import Vue from 'vue'
 // import Vuex from 'vuex'
 import getters from './getters'
+import user from "@/store/modules/user";
 
 
 
@@ -52,7 +53,7 @@ export default createStore({
 //     },
     // 总仓库 不实现任何状态管理 (没有 state mutations actions)         只合并子仓库
     modules: {
-
+        user,
     },
     getters
 })
