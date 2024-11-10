@@ -20,6 +20,8 @@ export default {
         login(state, payload) {
             state.isLoggedIn = true
             state.username = payload.username
+            console.log('state.isLoggedIn: ',state.isLoggedIn)
+            console.log('state.username: '  ,state.username)
         },
         logout(state) {
             state.isLoggedIn = false
