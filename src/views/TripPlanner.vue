@@ -91,14 +91,20 @@ import OverlayPin from "@/components/OverlayPin.vue";
 import { ref } from 'vue';
 import dayjs from 'dayjs';
 
+// 假设有一个函数可以优化活动顺序
+function optimizeRoute(activities) {
+  // Mock implementation: simply return activities in reverse order for demonstration
+  return activities.slice().reverse();
+}
+
 export default {
   name: 'TripPlanner',
-  components: { OverlayPin },
+  components: {OverlayPin},
   setup() {
     const destinations = [
-      { id: 1, name: '巴黎' },
-      { id: 2, name: '纽约' },
-      { id: 3, name: '东京' },
+      {id: 1, name: '巴黎'},
+      {id: 2, name: '纽约'},
+      {id: 3, name: '东京'},
       // 更多目的地...
     ];
 
@@ -107,7 +113,7 @@ export default {
       startDate: '',
       days: 1,
       peopleCount: 1,
-      activities: Array.from({ length: 15 }, () => [])
+      activities: Array.from({length: 15}, () => [])
     });
 
     const newActivity = ref('');
@@ -152,11 +158,12 @@ export default {
         return;
       }
 
-      itinerary.value = Array.from({ length: tripData.value.days }, (_, index) => {
+      itinerary.value = Array.from({length: tripData.value.days}, (_, index) => {
         const date = dayjs(tripData.value.startDate).add(index, 'day').format('YYYY-MM-DD');
+        const activitiesForDay = tripData.value.activities[index] || [];
         return {
           date,
-          activities: tripData.value.activities[index] || []
+          activities: optimizeRoute(activitiesForDay)
         };
       });
     };
