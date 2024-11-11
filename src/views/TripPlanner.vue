@@ -20,6 +20,11 @@
             <el-date-picker v-model="tripData.startDate" type="date" placeholder="选择日期" />
           </el-form-item>
 
+          <!-- 选择天数 -->
+          <el-form-item label="旅行天数">
+            <el-input-number v-model="tripData.days" :min="1" :max="15" />
+          </el-form-item>
+
           <!-- 选择人数 -->
           <el-form-item label="人数">
             <el-input-number v-model="tripData.peopleCount" :min="1" />
@@ -27,6 +32,9 @@
 
           <!-- 添加活动 -->
           <el-form-item label="活动安排">
+            <el-select v-model="newActivityDay" placeholder="选择天">
+              <el-option v-for="n in tripData.days" :key="n" :value="n" :label="'第' + n + '天'" />
+            </el-select>
             <el-input
                 v-model="newActivity"
                 placeholder="输入活动名称"
@@ -36,12 +44,15 @@
           </el-form-item>
 
           <!-- 显示活动 -->
-          <ul class="activities-list">
-            <li v-for="(activity, index) in tripData.activities" :key="index">
-              {{ activity }}
-              <el-button type="text" @click="removeActivity(index)">移除</el-button>
-            </li>
-          </ul>
+          <div v-for="day in tripData.days" :key="day" class="day-activities">
+            <h4>第{{ day }}天:</h4>
+            <ul class="activities-list">
+              <li v-for="(activity, index) in getActivitiesForDay(day)" :key="index">
+                {{ activity }}
+                <el-button type="text" @click="removeActivity(day, index)">移除</el-button>
+              </li>
+            </ul>
+          </div>
 
           <!-- 提交按钮 -->
           <el-form-item>
@@ -61,7 +72,10 @@
       <h3>生成的行程计划</h3>
       <ul>
         <li v-for="(day, index) in itinerary" :key="index">
-          第{{ index + 1 }}天: {{ day }}
+          第{{ index + 1 }}天 ({{ day.date }}):
+          <ul>
+            <li v-for="activity in day.activities" :key="activity">{{ activity }}</li>
+          </ul>
         </li>
       </ul>
     </div>
@@ -74,52 +88,91 @@
 
 <script>
 import OverlayPin from "@/components/OverlayPin.vue";
+import { ref } from 'vue';
+import dayjs from 'dayjs';
 
 export default {
   name: 'TripPlanner',
-  components: {OverlayPin},
-  data() {
-    return {
-      destinations: [
-        { id: 1, name: '巴黎' },
-        { id: 2, name: '纽约' },
-        { id: 3, name: '东京' },
-        // 更多目的地...
-      ],
-      tripData: {
-        destination: '',
-        startDate: '',
-        peopleCount: 1,
-        activities: []
-      },
-      newActivity: '',
-      itinerary: []
-    }
-  },
-  methods: {
-    addActivity() {
-      if (this.newActivity.trim()) {
-        this.tripData.activities.push(this.newActivity.trim());
-        this.newActivity = '';
+  components: { OverlayPin },
+  setup() {
+    const destinations = [
+      { id: 1, name: '巴黎' },
+      { id: 2, name: '纽约' },
+      { id: 3, name: '东京' },
+      // 更多目的地...
+    ];
+
+    const tripData = ref({
+      destination: '',
+      startDate: '',
+      days: 1,
+      peopleCount: 1,
+      activities: Array.from({ length: 15 }, () => [])
+    });
+
+    const newActivity = ref('');
+    const newActivityDay = ref(1);
+    const itinerary = ref([]);
+
+    const addActivity = () => {
+      if (newActivity.value.trim() && newActivityDay.value) {
+        tripData.value.activities[newActivityDay.value - 1].push(newActivity.value.trim());
+        newActivity.value = '';
       }
-    },
-    removeActivity(index) {
-      this.tripData.activities.splice(index, 1);
-    },
-    submitPlan() {
-      if (this.validateForm()) {
+    };
+
+    const removeActivity = (day, index) => {
+      tripData.value.activities[day - 1].splice(index, 1);
+    };
+
+    const getActivitiesForDay = (day) => {
+      return tripData.value.activities[day - 1] || [];
+    };
+
+    const submitPlan = () => {
+      if (validateForm()) {
         alert('旅行计划已提交！');
         // 可以将数据发送到服务器
       } else {
         alert('请完整填写所有必填项。');
       }
-    },
-    validateForm() {
-      return this.tripData.destination && this.tripData.startDate && this.tripData.activities.length > 0;
-    },
-    generateItinerary() {
-      this.itinerary = this.tripData.activities.map((activity, index) => `第${index+1}站, 访问 ${activity}`);
-    }
+    };
+
+    const validateForm = () => {
+      return (
+          tripData.value.destination &&
+          tripData.value.startDate &&
+          tripData.value.activities.some(dayActivities => dayActivities.length > 0)
+      );
+    };
+
+    const generateItinerary = () => {
+      if (!tripData.value.startDate) {
+        alert('请选择出发日期！');
+        return;
+      }
+
+      itinerary.value = Array.from({ length: tripData.value.days }, (_, index) => {
+        const date = dayjs(tripData.value.startDate).add(index, 'day').format('YYYY-MM-DD');
+        return {
+          date,
+          activities: tripData.value.activities[index] || []
+        };
+      });
+    };
+
+    return {
+      destinations,
+      tripData,
+      newActivity,
+      newActivityDay,
+      itinerary,
+      addActivity,
+      removeActivity,
+      getActivitiesForDay,
+      submitPlan,
+      generateItinerary
+    };
   }
 }
 </script>
@@ -151,6 +204,10 @@ export default {
 
 .planner-form .el-form-item {
   margin-bottom: 20px;
+}
+
+.day-activities {
+  margin-top: 20px;
 }
 
 .activities-list {
