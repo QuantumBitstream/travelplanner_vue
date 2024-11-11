@@ -17,6 +17,7 @@ export default {
     },
     // 各组件实例的(同步)方法 迁移到这儿
     mutations: {
+        /*  Login.vue 页面  */
         login(state, payload) {
             state.isLoggedIn = true
             state.username = payload.username
