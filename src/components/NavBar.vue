@@ -47,6 +47,7 @@
 
 <script>
 import store from "@/store";
+import {mapState} from "vuex";
 
 export default {
   name: 'NavBar',
@@ -68,6 +69,7 @@ export default {
     store() {
       return store
     },
+    ...mapState(["user"]),
     currentPath() {
       return this.$route.path
     }
@@ -94,7 +96,23 @@ export default {
 
     console.log(' NavBar.vue store.state.user.isLoggedIn: ',store.state.user.isLoggedIn)
     console.log(' NavBar.vue store.state.user.username: '  ,store.state.user.username)
+    //判断store中是否含有当前登录的用户数据
+    if (store.state.user.username === '') {
+      //判断本地缓存中是否含有当前登录的用户数据
+      if (localStorage.getItem("username") != null) {
+        //将本地缓存中的当前登录的用户据恢复到store仓库中
+        console.log(' NavBar.vue store.state.user.isLoggedIn: ',store.state.user.isLoggedIn)
+        console.log(' NavBar.vue store.state.user.username: '  ,store.state.user.username)
 
+        console.log(' localStorage.getItem("username") != null,即该用户登录，但刚才刷新页面导致页面store丢失: '  )
+        console.log(' 将本地缓存中的当前登录的用户据恢复到store仓库中: '  )
+        store.state.user.username = JSON.parse( JSON.stringify( localStorage.getItem("username") ) )
+        store.state.user.isLoggedIn = JSON.parse( JSON.stringify( localStorage.getItem("isLoggedIn") ) )
+        console.log(' NavBar.vue store.state.user.isLoggedIn: ',store.state.user.isLoggedIn)
+        console.log(' NavBar.vue store.state.user.username: '  ,store.state.user.username)
+
+      }
+    }
   }
 }
 </script>

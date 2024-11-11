@@ -60,7 +60,18 @@ export default {
           alert('登录成功！')
           localStorage.setItem('isLoggedIn', 'true')
           localStorage.setItem('username', this.loginForm.username)
-          store.dispatch('user/login', { username: this.loginForm.username })
+          /*
+          更新 store 使得NavBar组件实时及时更新
+          <div class="navbar-user">
+            <template v-if="store.state.user.isLoggedIn">
+           */
+          console.log(' 更新 store 使得NavBar组件实时及时更新... ' )
+          store.dispatch(
+              'user/login',
+              {
+                username: this.loginForm.username,
+                password: this.loginForm.password,
+              })
           // 跳转到Home页面
           this.$router.push('/')
         } else {
