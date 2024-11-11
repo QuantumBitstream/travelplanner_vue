@@ -47,13 +47,28 @@
           <el-form-item>
             <el-button type="success" @click="submitPlan">提交计划</el-button>
           </el-form-item>
+
+          <!-- 生成行程计划 -->
+          <el-form-item>
+            <el-button type="primary" @click="generateItinerary">生成行程计划</el-button>
+          </el-form-item>
         </el-form>
       </div>
     </el-card>
-  </div>
 
-  <div>
-    <OverlayPin></OverlayPin>
+    <!-- 显示生成的行程 -->
+    <div v-if="itinerary.length" class="itinerary">
+      <h3>生成的行程计划</h3>
+      <ul>
+        <li v-for="(day, index) in itinerary" :key="index">
+          第{{ index + 1 }}天: {{ day }}
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <OverlayPin></OverlayPin>
+    </div>
   </div>
 </template>
 
@@ -77,29 +92,33 @@ export default {
         peopleCount: 1,
         activities: []
       },
-      newActivity: ''
+      newActivity: '',
+      itinerary: []
     }
   },
   methods: {
     addActivity() {
       if (this.newActivity.trim()) {
-        this.tripData.activities.push(this.newActivity.trim())
-        this.newActivity = ''
+        this.tripData.activities.push(this.newActivity.trim());
+        this.newActivity = '';
       }
     },
     removeActivity(index) {
-      this.tripData.activities.splice(index, 1)
+      this.tripData.activities.splice(index, 1);
     },
     submitPlan() {
       if (this.validateForm()) {
-        alert('旅行计划已提交！')
-        // 这里可以加入进一步的逻辑，比如发送到服务器
+        alert('旅行计划已提交！');
+        // 可以将数据发送到服务器
       } else {
-        alert('请完整填写所有必填项。')
+        alert('请完整填写所有必填项。');
       }
     },
     validateForm() {
-      return this.tripData.destination && this.tripData.startDate && this.tripData.activities.length > 0
+      return this.tripData.destination && this.tripData.startDate && this.tripData.activities.length > 0;
+    },
+    generateItinerary() {
+      this.itinerary = this.tripData.activities.map((activity, index) => `第${index+1}站, 访问 ${activity}`);
     }
   }
 }
@@ -150,6 +169,17 @@ export default {
 .activities-list li .el-button {
   font-size: 0.9em;
   color: #f56c6c;
+}
+
+.itinerary {
+  margin: 20px 0;
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+.itinerary h3 {
+  margin-bottom: 15px;
 }
 
 @media (max-width: 768px) {
