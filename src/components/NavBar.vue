@@ -90,7 +90,11 @@ export default {
       if (!e.target.closest('.user-info')) {
         this.showUserMenu = false
       }
-    })
+    });
+
+    console.log(' NavBar.vue store.state.user.isLoggedIn: ',store.state.user.isLoggedIn)
+    console.log(' NavBar.vue store.state.user.username: '  ,store.state.user.username)
+
   }
 }
 </script>
