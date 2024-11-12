@@ -13,7 +13,7 @@ export default {
         /*  Login.vue 页面  */
         isLoggedIn: false,
         username: '',
-        userAvatar: 'https://example.com/avatar.jpg'
+        userAvatar: require('@/assets/avatar.png')
     },
     // 各组件实例的(同步)方法 迁移到这儿
     mutations: {
