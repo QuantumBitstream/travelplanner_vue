@@ -32,19 +32,19 @@ export default {
         {
           id: 1,
           name: '桂林',
-          imageUrl: '/images/guilin.jpg',
+          imageUrl: require('@/assets/images/guilin.png'),
           shortDescription: '青山绿水，甲天下的风光',
         },
         {
           id: 2,
           name: '苏州',
-          imageUrl: '/images/suzhou.jpg',
+          imageUrl: require('@/assets/images/suzhou.png'),
           shortDescription: '园林之美，江南风情浓郁',
         },
         {
           id: 3,
           name: '丽江',
-          imageUrl: '/images/lijiang.jpg',
+          imageUrl: require('@/assets/images/lijiang.png'),
           shortDescription: '古城魅力，纳西族文化深厚',
         },
         // 更多目的地...
