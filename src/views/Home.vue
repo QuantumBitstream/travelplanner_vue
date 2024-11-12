@@ -117,20 +117,20 @@ export default {
         {
           id: 1,
           name: '北京',
-          imageUrl: '/images/beijing.jpg',
+          imageUrl: require('@/assets/images/beijing.jpeg'), // 确保路径正确
           description: '感受古都魅力，探索现代文明'
         },
         {
           id: 2,
-          name: '上海',
-          imageUrl: '/images/shanghai.jpg',
-          description: '领略魔都风情，体验时尚生活'
+          name: '悉尼',
+          imageUrl: require('@/assets/images/sydney.jpg'), // 更新为悉尼的图片
+          description: '享受海港城市的美丽风光和多元文化'
         },
         {
           id: 3,
-          name: '成都',
-          imageUrl: '/images/chengdu.jpg',
-          description: '品味休闲生活，享受美食天堂'
+          name: '维也纳',
+          imageUrl: require('@/assets/images/vienna.jpeg'), // 更新为维也纳的图片
+          description: '体验音乐之都的优雅与历史'
         }
       ],
       trips: [
