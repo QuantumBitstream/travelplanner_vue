@@ -102,13 +102,13 @@ export default {
       banners: [
         {
           id: 1,
-          imageUrl: '/images/banner1.jpg',
+          imageUrl: require('@/assets/images/banner1.jpeg'),
           title: '探索世界的美好',
           subtitle: '开启您的完美旅程'
         },
         {
           id: 2,
-          imageUrl: '/images/banner2.jpg',
+          imageUrl: require('@/assets/images/banner2.jpeg'),
           title: '遇见最美风景',
           subtitle: '记录精彩时刻'
         }
