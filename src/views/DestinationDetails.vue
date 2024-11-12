@@ -192,19 +192,19 @@ export default {
             {
               id: 'sf',
               name: '旧金山',
-              image: '/images/sf.jpg',
+              image: require('@/assets/images/sf.png'),
               description: '金门大桥、渔人码头，体验不一样的加州风情'
             },
             {
               id: 'ch',
               name: '芝加哥',
-              image: '/images/ch.jpg',
+              image: require('@/assets/images/ch.png'),
               description: '风城，建筑艺术与深厚文化底蕴的现代都会'
             },
             {
               id: 'sd',
               name: '圣地亚哥',
-              image: '/images/sd.jpg',
+              image: require('@/assets/images/sd.png'),
               description: '海滨城市，完美的度假胜地'
             }
           ]
