@@ -154,9 +154,9 @@ export default {
           bestTime: '3-5月、9-11月',
           timezone: 'UTC-8',
           images: [
-            { url: '/images/la/hollywood.jpg', alt: '好莱坞标志' },
-            { url: '/images/la/santa-monica.jpg', alt: '圣莫尼卡海滩' },
-            { url: '/images/la/universal.jpg', alt: '环球影城' }
+            { url: require('@/assets/images/la/hollywood.png'), alt: '好莱坞标志' },
+            { url: require('@/assets/images/la/santa-monica.png'), alt: '圣莫尼卡海滩' },
+            { url: require('@/assets/images/la/universal.png'), alt: '环球影城' }
           ],
           description: '洛杉矶是美国加利福尼亚州最大的城市，也是美国的第二大城市。这里阳光明媚，气候宜人，拥有众多世界级的景点和娱乐设施。从好莱坞的星光大道到迪士尼乐园，从圣莫尼卡海滩到格里菲斯天文台，这里有着无数精彩纷呈的景点等待您的探索。',
           attractions: [
