@@ -163,7 +163,7 @@ export default {
             {
               id: '1',
               name: '好莱坞环球影城',
-              image: '/images/la/universal-studios.jpg',
+              image: require('@/assets/images/la/universal-studios.png'),
               description: '好莱坞环球影城是世界上最大的电影制片厂和主题公园之一，这里让您体验到电影的神奇魅力。',
               duration: '1整天',
               address: '100 Universal City Plaza, Universal City, CA 91608'
@@ -171,7 +171,7 @@ export default {
             {
               id: '2',
               name: '迪士尼乐园',
-              image: '/images/la/disneyland.jpg',
+              image: require('@/assets/images/la/disneyland.png'),
               description: '加州迪士尼乐园是华特·迪士尼的第一个主题公园，被称为"地球上最快乐的地方"。',
               duration: '1-2天',
               address: '1313 Disneyland Dr, Anaheim, CA 92802'
