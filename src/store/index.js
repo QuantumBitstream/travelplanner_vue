@@ -5,6 +5,10 @@ import { createStore } from 'vuex'
 // import Vuex from 'vuex'
 import getters from './getters'
 import user from "@/store/modules/user";
+import home from "@/store/modules/home";
+import destination from "@/store/modules/destination";
+import trip from "@/store/modules/trip";
+import community from "@/store/modules/community";
 
 
 
@@ -54,6 +58,10 @@ export default createStore({
     // 总仓库 不实现任何状态管理 (没有 state mutations actions)         只合并子仓库
     modules: {
         user,
+        home,
+        destination,
+        trip,
+        community,
     },
     getters
 })
