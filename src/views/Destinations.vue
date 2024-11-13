@@ -7,7 +7,7 @@
 
     <div class="destinations-grid">
       <el-card
-          v-for="destination in destinations"
+          v-for="destination in store.getters['destination/getAllDestinations']"
           :key="destination.id"
           class="destination-card"
           @click="viewDestination(destination)"
@@ -24,38 +24,32 @@
 </template>
 
 <script>
+import store from "@/store";
+
 export default {
   name: 'DestinationsView',
-  data() {
-    return {
-      destinations: [
-        {
-          id: 1,
-          name: '桂林',
-          imageUrl: require('@/assets/images/guilin.png'),
-          shortDescription: '青山绿水，甲天下的风光',
-        },
-        {
-          id: 2,
-          name: '苏州',
-          imageUrl: require('@/assets/images/suzhou.png'),
-          shortDescription: '园林之美，江南风情浓郁',
-        },
-        {
-          id: 3,
-          name: '丽江',
-          imageUrl: require('@/assets/images/lijiang.png'),
-          shortDescription: '古城魅力，纳西族文化深厚',
-        },
-        // 更多目的地...
-      ]
+
+  computed: {
+    store() {
+      return store
+    },
+    // ...mapGetters('destination', ['getAllDestinations']),
+    // destinations() {
+    //   return this.getAllDestinations
+    // }
+  },
+
+  methods: {
+    // ...mapActions('destination', ['fetchDestinations']),
+    viewDestination(destination) {
+      this.$router.push({ path: `/destination/${destination.id}` })
     }
   },
-  methods: {
-    viewDestination(destination) {
-      this.$router.push({ path: `/destination/${destination.id}` });
-    }
-  }
+
+  // created() {
+  //   // 组件创建时获取目的地数据
+  //   this.fetchDestinations()
+  // }
 }
 </script>
 
