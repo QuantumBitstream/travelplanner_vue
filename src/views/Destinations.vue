@@ -25,7 +25,7 @@
 
 <script>
 import store from "@/store";
-import {mapGetters, mapState} from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 
 export default {
   name: 'DestinationsView',
@@ -56,7 +56,7 @@ export default {
   },
 
   methods: {
-    // ...mapActions('destination', ['fetchDestinations']),
+    ...mapActions('destination', ['fetchDestinations']),
     viewDestination(destination) {
       this.$router.push({ path: `/destination/${destination.id}` })
     }
@@ -66,12 +66,13 @@ export default {
     // console.log( "destinations_vuex: ", this.destinations_vuex);
     // console.log( "destinationState_vuex: ", this.destinationState_vuex.destinations);
     this.destinations = store.state.destination.destinations;
-  }
+  },
 
-  // created() {
-  //   // 组件创建时获取目的地数据
-  //   this.fetchDestinations()
-  // }
+  created() {
+    // 组件创建时获取目的地数据
+    this.fetchDestinations()
+  }
+  
 }
 </script>
 
