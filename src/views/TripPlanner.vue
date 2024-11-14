@@ -1,9 +1,12 @@
 <template>
   <div class="trip-planner">
+
     <div class="page-header">
       <h1>旅行规划器</h1>
       <p>设计属于您自己的旅行计划，享受无缝体验</p>
     </div>
+
+    <div class="global-container-flex-row">
 
     <el-card class="planner-form-card">
       <div class="planner-form">
@@ -43,16 +46,7 @@
             <el-button type="primary" @click="addActivity">添加活动</el-button>
           </el-form-item>
 
-          <!-- 显示活动 -->
-          <div v-for="day in tripData.days" :key="day" class="day-activities">
-            <h4>第{{ day }}天:</h4>
-            <ul class="activities-list">
-              <li v-for="(activity, index) in getActivitiesForDay(day)" :key="index">
-                {{ activity }}
-                <el-button type="text" @click="removeActivity(day, index)">移除</el-button>
-              </li>
-            </ul>
-          </div>
+
 
           <!-- 提交按钮 -->
           <el-form-item>
@@ -67,6 +61,27 @@
       </div>
     </el-card>
 
+
+
+    <div>
+      <OverlayPin></OverlayPin>
+    </div>
+
+
+
+  </div>
+
+    <!-- 显示活动 -->
+    <div v-for="day in tripData.days" :key="day" class="day-activities">
+      <h4>第{{ day }}天:</h4>
+      <ul class="activities-list">
+        <li v-for="(activity, index) in getActivitiesForDay(day)" :key="index">
+          {{ activity }}
+          <el-button type="text" @click="removeActivity(day, index)">移除</el-button>
+        </li>
+      </ul>
+    </div>
+
     <!-- 显示生成的行程 -->
     <div v-if="itinerary.length" class="itinerary">
       <h3>生成的行程计划</h3>
@@ -79,10 +94,7 @@
         </li>
       </ul>
     </div>
-
-    <div>
-      <OverlayPin></OverlayPin>
-    </div>
+    
   </div>
 </template>
 
