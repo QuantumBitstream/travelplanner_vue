@@ -48,7 +48,7 @@ export default {
       return store
     },
     ...mapGetters({
-      destinations: 'destination/getAllDestinations'
+      destinations_vuex: 'destination/getAllDestinations'
     }),
   },
 
@@ -58,6 +58,10 @@ export default {
       this.$router.push({ path: `/destination/${destination.id}` })
     }
   },
+
+  mounted() {
+    this.destinations = store.state.destination.destinations;
+  }
 
   // created() {
   //   // 组件创建时获取目的地数据
