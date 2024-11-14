@@ -25,7 +25,7 @@
 
 <script>
 import store from "@/store";
-import {mapGetters} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 export default {
   name: 'DestinationsView',
@@ -47,6 +47,9 @@ export default {
     store() {
       return store
     },
+    ...mapState({
+      destinationState_vuex: state => state.destination
+    }),
     ...mapGetters({
       destinations_vuex: 'destination/getAllDestinations'
     }),
@@ -60,6 +63,8 @@ export default {
   },
 
   mounted() {
+    // console.log( "destinations_vuex: ", this.destinations_vuex);
+    // console.log( "destinationState_vuex: ", this.destinationState_vuex.destinations);
     this.destinations = store.state.destination.destinations;
   }
 
