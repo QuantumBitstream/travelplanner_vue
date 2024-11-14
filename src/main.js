@@ -10,7 +10,8 @@ const app = createApp(App)
 
 // 导入所有图标并全局注册
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-import store from "@/router";
+import store from "@/store";
+
 
 
 // 导入所有图标并全局注册
