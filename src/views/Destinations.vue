@@ -33,10 +33,9 @@ export default {
     store() {
       return store
     },
-    // ...mapGetters('destination', ['getAllDestinations']),
-    // destinations() {
-    //   return this.getAllDestinations
-    // }
+    // ...mapGetters({
+    //   destinations: 'destination/getAllDestinations'
+    // }),
   },
 
   methods: {
