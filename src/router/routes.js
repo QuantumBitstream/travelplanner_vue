@@ -22,6 +22,10 @@ export const publicRoutes = [
         path: '/destination/:id',
         name: 'DestinationDetails',
         component: () => import('@/views/DestinationDetails.vue')
+    },{
+        path: '/trip/:id',
+        name: 'TripDetails',
+        component: () => import('@/views/TripDetails.vue')
     },
     {
         path: '/trip-planner',
