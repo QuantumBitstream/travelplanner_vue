@@ -22,7 +22,13 @@ export const publicRoutes = [
         path: '/destination/:id',
         name: 'DestinationDetails',
         component: () => import('@/views/DestinationDetails.vue')
-    },{
+    },
+    {
+        path: '/trips',
+        name: 'Trips',
+        component: () => import('@/views/Trips.vue')
+    },
+    {
         path: '/trip/:id',
         name: 'TripDetails',
         component: () => import('@/views/TripDetails.vue')
