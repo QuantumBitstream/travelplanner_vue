@@ -7,7 +7,7 @@
 
     <div class="destinations-grid">
       <el-card
-          v-for="destination in store.getters['destination/getAllDestinations']"
+          v-for="destination in destinations"
           :key="destination.id"
           class="destination-card"
           @click="viewDestination(destination)"
@@ -25,17 +25,31 @@
 
 <script>
 import store from "@/store";
+import {mapGetters} from "vuex";
 
 export default {
   name: 'DestinationsView',
+
+  data() {
+    return {
+      destinations: [
+        {
+          id: 1,
+          name: '桂林',
+          imageUrl: require('@/assets/images/guilin.png'),
+          shortDescription: '青山绿水，甲天下的风光',
+        },
+      ]
+    };
+  },
 
   computed: {
     store() {
       return store
     },
-    // ...mapGetters({
-    //   destinations: 'destination/getAllDestinations'
-    // }),
+    ...mapGetters({
+      destinations: 'destination/getAllDestinations'
+    }),
   },
 
   methods: {
