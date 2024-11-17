@@ -39,10 +39,6 @@ export default {
         async login({commit}, userData) {
             // 模拟登录逻辑
             // 模拟登录成功
-            // localStorage.setItem('isLoggedIn', 'true');
-            // localStorage.setItem('username', userData.username);
-
-
             try {
                 const resp = await login(userData);
                 console.log('Login successful:', resp.data);
