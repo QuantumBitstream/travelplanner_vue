@@ -38,11 +38,13 @@ export default {
         /*  Login.vue 页面  */
         async login({commit}, userData) {
             // 模拟登录逻辑
-            // 模拟登录成功
+
             try {
+                // 添加登录API调用
                 const resp = await login(userData);
                 console.log('Login successful:', resp.data);
 
+                // 模拟登录成功
                 /*
                 更新 store 使得NavBar组件实时及时更新
                 <div class="navbar-user">
