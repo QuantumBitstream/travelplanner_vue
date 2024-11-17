@@ -14,7 +14,7 @@ export const login = (credential) => {
         }
 
 
-        return response.json();
+        return response.json();  // 解析响应体为 JSON 格式
     });
 };
 
