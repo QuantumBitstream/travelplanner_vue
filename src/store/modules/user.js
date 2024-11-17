@@ -21,7 +21,7 @@ export default {
     // 各组件实例的(同步)方法 迁移到这儿
     mutations: {
         /*  Login.vue 页面  */
-        login(state, payload) {
+        SET_LOGIN_STATE(state, payload) {
             state.isLoggedIn = true
             state.username = payload.username
             state.password = payload.password
@@ -48,7 +48,7 @@ export default {
                 <div class="navbar-user">
                   <template v-if="store.state.user.isLoggedIn">
                */
-                commit('login', userData)
+                commit('SET_LOGIN_STATE', userData)
                 console.log(' 更新 store 使得NavBar组件实时及时更新... ' )
 
                 localStorage.setItem('isLoggedIn', 'true');
