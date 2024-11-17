@@ -43,6 +43,7 @@ export default {
                 // 添加登录API调用
                 const resp = await login(userData);
                 console.log('Login successful:', resp.data);
+                alert('登录成功！')
 
                 // 模拟登录成功
                 /*

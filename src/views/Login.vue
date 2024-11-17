@@ -58,10 +58,10 @@ export default {
   methods: {
     ...mapActions('user', ['login']),
     handleLogin() {
-      this.$refs.loginForm.validate((valid) => {
+      this.$refs.loginForm.validate( async (valid) => {
         if (valid) {
           // 模拟登录成功
-          this.login({
+          await this.login({
             username: this.loginForm.username,
             password: this.loginForm.password
           });
