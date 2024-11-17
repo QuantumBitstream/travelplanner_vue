@@ -55,15 +55,12 @@
 </template>
 
 <script>
+import { mapState, mapActions } from 'vuex';
+
 export default {
   name: 'RegisterView',
   data() {
     return {
-      registerForm: {
-        username: '',
-        password: '',
-        confirmPassword: ''
-      },
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -96,24 +93,65 @@ export default {
       }
     }
   },
+
+  computed: {
+    ...mapState('user', ['registerForm'])
+  },
+
   methods: {
-    handleRegister() {
-      this.$refs.registerForm.validate((valid) => {
-        if (valid) {
-          alert('注册成功！')
-          // 跳转到登录页面
-          this.$router.push('/login')
-          // 这里可以处理注册逻辑，比如调用API
-        } else {
-          alert('请填写正确的信息。')
-          return false
+    ...mapActions('user', ['register', 'resetRegisterForm']),
+
+    async handleRegister() {
+      try {
+        const valid = await this.$refs.registerForm.validate()
+        if (!valid) {
+          this.$message.error('请正确填写所有必填信息')
+          return
         }
-      })
+
+        this.loading = true
+        const result = await this.register(this.registerForm)
+        console.log('result: ', result)
+
+        if (result.success) {
+          this.$message.success('注册成功！')
+          this.$router.push('/login')
+        } else {
+          this.$message.error(result.message || '注册失败，请重试')
+        }
+      } catch (error) {
+        this.$message.error('注册过程中发生错误')
+      } finally {
+        this.loading = false
+      }
     },
+
     resetForm() {
       this.$refs.registerForm.resetFields()
+      this.resetRegisterForm()
     }
   }
+
+
+// methods: {
+  //   handleRegister() {
+  //     this.$refs.registerForm.validate((valid) => {
+  //       if (valid) {
+  //         alert('注册成功！')
+  //         // 跳转到登录页面
+  //         this.$router.push('/login')
+  //         // 这里可以处理注册逻辑，比如调用API
+  //       } else {
+  //         alert('请填写正确的信息。')
+  //         return false
+  //       }
+  //     })
+  //   },
+  //   resetForm() {
+  //     this.$refs.registerForm.resetFields()
+  //   }
+  // }
+
 }
 </script>
 

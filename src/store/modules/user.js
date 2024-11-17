@@ -4,6 +4,7 @@
 
 
 import {login} from "@/utils";
+import axios from "axios";
 
 export default {
     // 是否开启独立命名空间
@@ -16,7 +17,17 @@ export default {
         isLoggedIn: false,
         username: '',
         password: '',
-        userAvatar: require('@/assets/avatar.png')
+        userAvatar: require('@/assets/avatar.png'),
+
+        /*  Register.vue 页面  */
+        registerForm: {
+            username: '',
+            email: '',
+            password: '',
+            confirmPassword: '',
+            role: ''
+        }
+
     },
     // 各组件实例的(同步)方法 迁移到这儿
     mutations: {
@@ -31,7 +42,22 @@ export default {
         logout(state) {
             state.isLoggedIn = false
             state.username = ''
+        },
+
+        /*  Register.vue 页面  */
+        SET_REGISTER_FORM(state, formData) {
+            state.registerForm = { ...state.registerForm, ...formData }
+        },
+        RESET_REGISTER_FORM(state) {
+            state.registerForm = {
+                username: '',
+                email: '',
+                password: '',
+                confirmPassword: '',
+                role: ''
+            }
         }
+
     },
     // 各组件实例的(异步)方法 迁移到这儿
     actions: {
@@ -77,11 +103,46 @@ export default {
             localStorage.removeItem('username');
 
             commit('logout')
+        },
+
+        /*  Register.vue 页面  */
+        // 注册操作
+        async register({ commit }, formData) {
+            try {
+                // 这里替换为实际的API调用
+                const domain = "http://localhost:8080"
+                const loginUrl = `${domain}/auth/register`;
+                const response = await axios.post(loginUrl, formData)
+                console.log('response.data: ', response)
+                if (response.status === 201) {
+                    commit('RESET_REGISTER_FORM')
+                    return { success: true, message: '注册成功' }
+                }
+                return { success: false, message: response.data.message }
+            } catch (error) {
+                return { success: false, message: error.response?.data?.message || '注册失败' }
+            }
+        },
+
+        // 更新表单数据
+        updateRegisterForm({ commit }, formData) {
+            commit('SET_REGISTER_FORM', formData)
+        },
+
+        // 重置表单
+        resetRegisterForm({ commit }) {
+            commit('RESET_REGISTER_FORM')
         }
+
     },
     getters: {
+        /*  Login.vue 页面  */
         isLoggedIn: state => state.isLoggedIn,
         username: state => state.username,
-        userAvatar: state => state.userAvatar
+        userAvatar: state => state.userAvatar,
+
+        /*  Register.vue 页面  */
+        getRegisterForm: state => state.registerForm
+
     }
 }

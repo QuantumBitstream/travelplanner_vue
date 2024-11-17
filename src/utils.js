@@ -18,6 +18,21 @@ export const login = (credential) => {
     });
 };
 
+// export const register = (credential) => {
+//     const registerUrl = `${domain}/auth/register`;
+//     return fetch(registerUrl, {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json",
+//         },
+//         body: JSON.stringify(credential),
+//     }).then((response) => {
+//         if (response.status >= 300) {
+//             throw Error("Fail to register");
+//         }
+//     });
+// };
+
 
 
 
