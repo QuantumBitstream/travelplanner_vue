@@ -11,6 +11,11 @@
           <el-input v-model="registerForm.username" autocomplete="off" placeholder="请输入用户名" />
         </el-form-item>
 
+        <!-- 邮箱输入 -->
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="registerForm.email" autocomplete="off" placeholder="请输入邮箱" />
+        </el-form-item>
+
         <!-- 密码输入 -->
         <el-form-item label="密码" prop="password">
           <el-input
@@ -29,6 +34,14 @@
               autocomplete="off"
               placeholder="请再次输入密码"
           />
+        </el-form-item>
+
+        <!-- 角色选择 -->
+        <el-form-item label="角色" prop="role">
+          <el-select v-model="registerForm.role" placeholder="请选择角色">
+            <el-option label="User" value="role_user"></el-option>
+            <el-option label="Admin" value="role_admin"></el-option>
+          </el-select>
         </el-form-item>
 
         <!-- 提交按钮 -->
@@ -56,6 +69,10 @@ export default {
           { required: true, message: '请输入用户名', trigger: 'blur' },
           { min: 3, max: 15, message: '用户名长度在 3 到 15 个字符', trigger: 'blur' }
         ],
+        email: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' },
+          { type: 'email', message: '请输入有效的邮箱地址', trigger: 'blur' }
+        ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           { min: 6, message: '密码长度不能小于 6 个字符', trigger: 'blur' }
@@ -72,6 +89,9 @@ export default {
             },
             trigger: 'blur'
           }
+        ],
+        role: [
+          { required: true, message: '请选择角色', trigger: 'change' }
         ]
       }
     }
