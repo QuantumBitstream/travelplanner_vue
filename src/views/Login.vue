@@ -61,13 +61,6 @@ export default {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           // 模拟登录成功
-
-          /*
-          更新 store 使得NavBar组件实时及时更新
-          <div class="navbar-user">
-            <template v-if="store.state.user.isLoggedIn">
-           */
-          console.log(' 更新 store 使得NavBar组件实时及时更新... ' )
           this.login({
             username: this.loginForm.username,
             password: this.loginForm.password
