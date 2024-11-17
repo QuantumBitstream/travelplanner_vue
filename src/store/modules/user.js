@@ -13,6 +13,7 @@ export default {
         /*  Login.vue 页面  */
         isLoggedIn: false,
         username: '',
+        password: '',
         userAvatar: require('@/assets/avatar.png')
     },
     // 各组件实例的(同步)方法 迁移到这儿
@@ -21,6 +22,7 @@ export default {
         login(state, payload) {
             state.isLoggedIn = true
             state.username = payload.username
+            state.password = payload.password
             console.log('state.isLoggedIn: ',state.isLoggedIn)
             console.log('state.username: '  ,state.username)
         },
@@ -34,9 +36,17 @@ export default {
         /*  Login.vue 页面  */
         login({ commit }, userData) {
             // 模拟登录逻辑
+            // 模拟登录成功
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('username', userData.username);
+
             commit('login', userData)
         },
         logout({ commit }) {
+
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('username');
+
             commit('logout')
         }
     },

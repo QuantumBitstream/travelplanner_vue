@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import store from "@/store";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: 'LoginView',
@@ -52,36 +52,36 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapGetters('user', ['isLoggedIn', 'username'])
+  },
   methods: {
+    ...mapActions('user', ['login']),
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
           // 模拟登录成功
-          alert('登录成功！')
-          localStorage.setItem('isLoggedIn', 'true')
-          localStorage.setItem('username', this.loginForm.username)
+
           /*
           更新 store 使得NavBar组件实时及时更新
           <div class="navbar-user">
             <template v-if="store.state.user.isLoggedIn">
            */
           console.log(' 更新 store 使得NavBar组件实时及时更新... ' )
-          store.dispatch(
-              'user/login',
-              {
-                username: this.loginForm.username,
-                password: this.loginForm.password,
-              })
+          this.login({
+            username: this.loginForm.username,
+            password: this.loginForm.password
+          });
           // 跳转到Home页面
-          this.$router.push('/')
+          this.$router.push('/');
         } else {
-          alert('请填写必填项。')
-          return false
+          alert('请填写必填项。');
+          return false;
         }
-      })
+      });
     },
     resetForm() {
-      this.$refs.loginForm.resetFields()
+      this.$refs.loginForm.resetFields();
     }
   }
 }
