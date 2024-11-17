@@ -39,8 +39,8 @@
         <!-- 角色选择 -->
         <el-form-item label="角色" prop="role">
           <el-select v-model="registerForm.role" placeholder="请选择角色">
-            <el-option label="User" value="role_user"></el-option>
-            <el-option label="Admin" value="role_admin"></el-option>
+            <el-option label="USER" value="ROLE_USER"></el-option>
+            <el-option label="ADMIN" value="ROLE_ADMIN"></el-option>
           </el-select>
         </el-form-item>
 
