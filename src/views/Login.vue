@@ -61,10 +61,11 @@ export default {
       this.$refs.loginForm.validate( async (valid) => {
         if (valid) {
           // 模拟登录成功
-          await this.login({
+          const response = await this.login({
             username: this.loginForm.username,
             password: this.loginForm.password
           });
+          console.log('response.json():', response);
           // 跳转到Home页面
           this.$router.push('/');
         } else {

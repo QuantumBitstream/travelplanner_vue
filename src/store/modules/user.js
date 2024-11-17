@@ -57,6 +57,7 @@ export default {
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('username', userData.username);
 
+                return resp
             } catch (error) {
 
 
