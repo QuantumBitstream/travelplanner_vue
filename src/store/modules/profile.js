@@ -74,13 +74,33 @@ export default {
         },
 
         // 更新用户资料
-        updateUserProfile({ state }) {
-            return new Promise((resolve) => {
-                // 这里模拟API调用
-                setTimeout(() => {
-                    resolve(state.profileForm);
-                }, 500);
-            });
+        async updateUserProfile(context,payload) {
+            // return new Promise((resolve) => {
+            //     // 这里模拟API调用
+            //     setTimeout(() => {
+            //         resolve(state.profileForm);
+            //     }, 500);
+            // });
+
+            try {
+                const authToken = localStorage.getItem("authToken");
+                const searchStaysUrl = new URL(`http://localhost:8080/user/updateUserProfile`);
+                searchStaysUrl.searchParams.append("email", payload );
+                const response = await fetch(
+                    searchStaysUrl,
+                    {
+                        method: "POST",
+                        headers: {
+                            Authorization: `Bearer ${authToken}`,
+                        },
+                    });
+                const data = await response.json();
+                console.log('updateUserProfile:', data)
+                // commit('SET_PROFILE_FORM', data);  // store, 异步方法调用同步方法
+            } catch (error) {
+                console.error('Error updateUserProfile data:', error);
+            }
+
         },
 
         // 重置表单

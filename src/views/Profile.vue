@@ -56,7 +56,8 @@ export default {
       this.$refs.profileForm.validate(async (valid) => {
         if (valid) {
           try {
-            await this.updateUserProfile();
+
+            await this.updateUserProfile( this.profileForm.email );
             this.$message.success('个人资料已更新！');
           } catch (error) {
             this.$message.error('更新失败，请重试');
