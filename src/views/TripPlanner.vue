@@ -8,75 +8,78 @@
 
     <div class="global-container-flex-row">
 
-    <el-card class="planner-form-card">
-      <div class="planner-form">
-        <el-form :model="tripData" label-width="100px">
-          <!-- 选择目的地 -->
-          <el-form-item label="目的地">
-            <el-select v-model="tripData.destination" placeholder="请选择目的地">
-              <el-option v-for="dest in destinations" :key="dest.id" :value="dest.name" :label="dest.name" />
-            </el-select>
-          </el-form-item>
+      <el-card class="planner-form-card">
+        <div class="planner-form">
+          <el-form :model="tripData" label-width="100px">
+            <!-- 选择目的地 -->
+            <el-form-item label="目的地">
+              <el-select v-model="tripData.destination" placeholder="请选择目的地">
+                <el-option v-for="dest in destinations" :key="dest.id" :value="dest.name" :label="dest.name" />
+              </el-select>
+            </el-form-item>
 
-          <!-- 选择日期 -->
-          <el-form-item label="出发日期">
-            <el-date-picker v-model="tripData.startDate" type="date" placeholder="选择日期" />
-          </el-form-item>
+            <!-- 选择日期 -->
+            <el-form-item label="出发日期">
+              <el-date-picker v-model="tripData.startDate" type="date" placeholder="选择日期" />
+            </el-form-item>
 
-          <!-- 选择天数 -->
-          <el-form-item label="旅行天数">
-            <el-input-number v-model="tripData.days" :min="1" :max="15" />
-          </el-form-item>
+            <!-- 选择天数 -->
+            <el-form-item label="旅行天数">
+              <el-input-number v-model="tripData.days" :min="1" :max="15" />
+            </el-form-item>
 
-          <!-- 选择人数 -->
-          <el-form-item label="人数">
-            <el-input-number v-model="tripData.peopleCount" :min="1" />
-          </el-form-item>
+            <!-- 选择人数 -->
+            <el-form-item label="人数">
+              <el-input-number v-model="tripData.peopleCount" :min="1" />
+            </el-form-item>
 
-          <!-- 添加活动 -->
-          <el-form-item label="活动安排">
-            <el-select v-model="newActivityDay" placeholder="选择天">
-              <el-option v-for="n in tripData.days" :key="n" :value="n" :label="'第' + n + '天'" />
-            </el-select>
-            <el-input
-                v-model="newActivity"
-                placeholder="输入活动名称"
-                @keyup.enter="addActivity"
-            />
-            <el-button type="primary" @click="addActivity">添加活动</el-button>
-          </el-form-item>
+            <!-- 添加活动 -->
+            <el-form-item label="活动安排">
+              <el-select v-model="newActivityDay" placeholder="选择天">
+                <el-option v-for="n in tripData.days" :key="n" :value="n" :label="'第' + n + '天'" />
+              </el-select>
+              <el-autocomplete
+                  v-model="newActivity"
+                  :fetch-suggestions="fetchSuggestions"
+                  placeholder="输入活动名称(目的地景点)"
+                  @select="onSelectSuggestion"
+              />
+              <el-input
+                  v-model="newActivityDescription"
+                  placeholder="输入活动描述"
+              />
+              <el-time-picker
+                  v-model="newActivityTime"
+                  placeholder="选择活动时间"
+              />
+              <el-button type="primary" @click="addActivity">添加活动</el-button>
+            </el-form-item>
 
+            <!-- 提交按钮 -->
+            <el-form-item>
+              <el-button type="success" @click="submitPlan">提交计划</el-button>
+            </el-form-item>
 
+            <!-- 生成行程计划 -->
+            <el-form-item>
+              <el-button type="primary" @click="generateItinerary">生成行程计划</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+      </el-card>
 
-          <!-- 提交按钮 -->
-          <el-form-item>
-            <el-button type="success" @click="submitPlan">提交计划</el-button>
-          </el-form-item>
-
-          <!-- 生成行程计划 -->
-          <el-form-item>
-            <el-button type="primary" @click="generateItinerary">生成行程计划</el-button>
-          </el-form-item>
-        </el-form>
+      <div>
+        <OverlayPin></OverlayPin>
       </div>
-    </el-card>
 
-
-
-    <div>
-      <OverlayPin></OverlayPin>
     </div>
-
-
-
-  </div>
 
     <!-- 显示活动 -->
     <div v-for="day in tripData.days" :key="day" class="day-activities">
       <h4>第{{ day }}天:</h4>
       <ul class="activities-list">
         <li v-for="(activity, index) in getActivitiesForDay(day)" :key="index">
-          {{ activity }}
+          {{ activity.name }} - {{ activity.description }} - {{ activity.time }}
           <el-button type="text" @click="removeActivity(day, index)">移除</el-button>
         </li>
       </ul>
@@ -89,12 +92,14 @@
         <li v-for="(day, index) in itinerary" :key="index">
           第{{ index + 1 }}天 ({{ day.date }}):
           <ul>
-            <li v-for="activity in day.activities" :key="activity">{{ activity }}</li>
+            <li v-for="activity in day.activities" :key="activity.name">
+              {{ activity.name }} - {{ activity.description }} - {{ activity.time }}
+            </li>
           </ul>
         </li>
       </ul>
     </div>
-    
+
   </div>
 </template>
 
@@ -114,9 +119,9 @@ export default {
   components: {OverlayPin},
   setup() {
     const destinations = [
-      {id: 1, name: '巴黎'},
+      {id: 1, name: '北京'},
       {id: 2, name: '纽约'},
-      {id: 3, name: '东京'},
+      {id: 3, name: '洛杉矶'},
       // 更多目的地...
     ];
 
@@ -129,13 +134,21 @@ export default {
     });
 
     const newActivity = ref('');
+    const newActivityDescription = ref('');
+    const newActivityTime = ref('');
     const newActivityDay = ref(1);
     const itinerary = ref([]);
 
     const addActivity = () => {
       if (newActivity.value.trim() && newActivityDay.value) {
-        tripData.value.activities[newActivityDay.value - 1].push(newActivity.value.trim());
+        tripData.value.activities[newActivityDay.value - 1].push({
+          name: newActivity.value.trim(),
+          description: newActivityDescription.value.trim(),
+          time: newActivityTime.value
+        });
         newActivity.value = '';
+        newActivityDescription.value = '';
+        newActivityTime.value = '';
       }
     };
 
@@ -145,6 +158,20 @@ export default {
 
     const getActivitiesForDay = (day) => {
       return tripData.value.activities[day - 1] || [];
+    };
+
+    const fetchSuggestions = (queryString, cb) => {
+      const suggestions = [
+        { value: '埃菲尔铁塔' },
+        { value: '卢浮宫' },
+        { value: '时代广场' },
+        // 更多景点...
+      ];
+      cb(suggestions.filter(s => s.value.toLowerCase().includes(queryString.toLowerCase())));
+    };
+
+    const onSelectSuggestion = (item) => {
+      newActivity.value = item.value;
     };
 
     const submitPlan = () => {
@@ -184,11 +211,15 @@ export default {
       destinations,
       tripData,
       newActivity,
+      newActivityDescription,
+      newActivityTime,
       newActivityDay,
       itinerary,
       addActivity,
       removeActivity,
       getActivitiesForDay,
+      fetchSuggestions,
+      onSelectSuggestion,
       submitPlan,
       generateItinerary
     };
