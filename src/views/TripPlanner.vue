@@ -248,7 +248,7 @@ export default {
 }
 
 .planner-form-card {
-  max-width: 600px;
+  max-width: 450px;
   margin: 0 auto;
 }
 
