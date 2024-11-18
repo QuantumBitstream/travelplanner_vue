@@ -7,17 +7,17 @@ export default {
         profileForm: {
             username: 'exampleUser',
             email: '',
-            phone: ''
+            // phone: ''
         },
         rules: {
             email: [
                 { required: true, message: '请输入邮箱地址', trigger: 'blur' },
                 { type: 'email', message: '请输入有效的邮箱地址', trigger: ['blur', 'change'] }
             ],
-            phone: [
-                { required: true, message: '请输入电话号码', trigger: 'blur' },
-                { pattern: /^[0-9]+$/, message: '电话号码只能包含数字', trigger: 'blur' }
-            ]
+            // phone: [
+            //     { required: true, message: '请输入电话号码', trigger: 'blur' },
+            //     { pattern: /^[0-9]+$/, message: '电话号码只能包含数字', trigger: 'blur' }
+            // ]
         }
     },
 
@@ -34,7 +34,7 @@ export default {
             state.profileForm = {
                 username: 'exampleUser',
                 email: '',
-                phone: ''
+                // phone: ''
             };
         }
     },
@@ -47,7 +47,7 @@ export default {
                     const userData = {
                         username: 'exampleUser',
                         email: 'user@example.com',
-                        phone: '1234567890'
+                        // phone: '1234567890'
                     };
                     commit('SET_PROFILE_FORM', userData);
                     resolve(userData);

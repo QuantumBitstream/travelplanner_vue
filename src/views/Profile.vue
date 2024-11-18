@@ -19,9 +19,9 @@
           <el-input v-model="profileForm.email" placeholder="请输入邮箱" />
         </el-form-item>
 
-        <el-form-item label="电话" prop="phone">
-          <el-input v-model="profileForm.phone" placeholder="请输入电话号码" />
-        </el-form-item>
+<!--        <el-form-item label="电话" prop="phone">-->
+<!--          <el-input v-model="profileForm.phone" placeholder="请输入电话号码" />-->
+<!--        </el-form-item>-->
 
         <el-form-item>
           <el-button type="primary" @click="updateProfile">保存</el-button>
