@@ -41,18 +41,36 @@ export default {
 
     actions: {
         // 加载用户资料
-        loadUserProfile({ commit }) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    const userData = {
-                        username: 'exampleUser',
-                        email: 'user@example.com',
-                        // phone: '1234567890'
-                    };
-                    commit('SET_PROFILE_FORM', userData);
-                    resolve(userData);
-                }, 500);
-            });
+        async loadUserProfile({commit}) {
+            // return new Promise((resolve) => {
+            //     setTimeout(() => {
+            //         const userData = {
+            //             username: 'exampleUser',
+            //             email: 'user@example.com',
+            //             // phone: '1234567890'
+            //         };
+            //         commit('SET_PROFILE_FORM', userData);
+            //         resolve(userData);
+            //     }, 500);
+            // });
+
+
+            try {
+                const authToken = localStorage.getItem("authToken");
+                const response = await fetch(
+                    'http://localhost:8080/user/profile',
+                    {
+                        headers: {
+                            Authorization: `Bearer ${authToken}`,
+                        },
+                    });
+                const data = await response.json();
+                commit('SET_PROFILE_FORM', data);  // store, 异步方法调用同步方法
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+
+
         },
 
         // 更新用户资料

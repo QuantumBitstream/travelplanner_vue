@@ -82,6 +82,7 @@ export default {
 
                 localStorage.setItem('isLoggedIn', 'true');
                 localStorage.setItem('username', userData.username);
+                localStorage.setItem('authToken', resp.token);
 
                 return resp
             } catch (error) {
@@ -101,6 +102,7 @@ export default {
 
             localStorage.removeItem('isLoggedIn');
             localStorage.removeItem('username');
+            localStorage.removeItem('authToken');
 
             commit('logout')
         },
