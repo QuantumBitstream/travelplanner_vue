@@ -51,6 +51,8 @@
               <el-time-picker
                   v-model="newActivityTime"
                   placeholder="选择活动时间"
+                  value-format="HH:mm"
+                  format="HH:mm"
               />
               <el-button type="primary" @click="addActivity">添加活动</el-button>
             </el-form-item>
