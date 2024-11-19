@@ -163,13 +163,45 @@ export default {
       return tripData.value.activities[day - 1] || [];
     };
 
-    const fetchSuggestions = (queryString, cb) => {
-      const suggestions = [
-        { value: '埃菲尔铁塔' },
-        { value: '卢浮宫' },
+    const cityAttractions = {
+      '北京': [
+        { value: '故宫博物院' },
+        { value: '长城' },
+        { value: '天安门广场' },
+        { value: '颐和园' },
+        { value: '天坛公园' },
+        { value: '南锣鼓巷' },
+        { value: '798艺术区' },
+        { value: '北海公园' },
+        { value: '圆明园' }
+      ],
+      '纽约': [
+        { value: '自由女神像' },
+        { value: '中央公园' },
         { value: '时代广场' },
-        // 更多景点...
-      ];
+        { value: '帝国大厦' },
+        { value: '大都会博物馆' },
+        { value: '布鲁克林大桥' },
+        { value: '百老汇' },
+        { value: '洛克菲勒中心' },
+        { value: '华尔街' }
+      ],
+      '洛杉矶': [
+        { value: '好莱坞标志' },
+        { value: '环球影城' },
+        { value: '迪士尼乐园' },
+        { value: '比佛利山庄' },
+        { value: '圣莫尼卡海滩' },
+        { value: '格里菲斯天文台' },
+        { value: '盖蒂中心' },
+        { value: '威尼斯海滩' },
+        { value: '星光大道' }
+      ]
+    };
+
+    const fetchSuggestions = (queryString, cb) => {
+      const selectedCity = tripData.value.destination;
+      const suggestions = cityAttractions[selectedCity] || [];
       cb(suggestions.filter(s => s.value.toLowerCase().includes(queryString.toLowerCase())));
     };
 
