@@ -252,6 +252,7 @@ export default {
     // 返回输入的所有目的地景点的数组
     const getAllInputAttractions = () => {
       // 扁平化所有天数的活动数组，并提取景点名称
+      console.log('tripData.value.activities：', tripData.value.activities);
       const allAttractions = tripData.value.activities
           .flat() // 将二维数组扁平化为一维数组
           .map(activity => activity.name) // 提取每个活动的名称
