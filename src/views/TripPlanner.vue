@@ -200,6 +200,7 @@ export default {
       itinerary.value = Array.from({length: tripData.value.days}, (_, index) => {
         const date = dayjs(tripData.value.startDate).add(index, 'day').format('YYYY-MM-DD');
         const activitiesForDay = tripData.value.activities[index] || [];
+        console.log( 'activitiesForDay: ', activitiesForDay );
         return {
           date,
           activities: optimizeRoute(activitiesForDay)
