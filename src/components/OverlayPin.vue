@@ -28,11 +28,22 @@
     />
 
   </tlbs-map>
+
+  <el-form-item>
+    <el-button type="primary" @click="updatePin">生成行程计划</el-button>
+  </el-form-item>
+
 </template>
 
 <script>
 export default {
   name: 'PolylineDemo',
+  props: {
+    geometriesTest: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       map: null,
@@ -145,6 +156,10 @@ export default {
     onClick(e) {
       console.log(e);
     },
+    updatePin() {
+      this.geometries2 = this.geometriesTest
+      console.log('this.geometriesTest: ', this.geometriesTest)
+    }
   },
 };
 </script>

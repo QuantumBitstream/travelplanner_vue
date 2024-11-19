@@ -64,14 +64,14 @@
 
             <!-- 生成行程计划 -->
             <el-form-item>
-              <el-button type="primary" @click="generateItinerary();getAttractionsForDestination();getAllInputAttractions()">生成行程计划</el-button>
+              <el-button type="primary" @click="generateItinerary();getAttractionsForDestination();getAllInputAttractions();getSelectedAttractionCoordinates()">生成行程计划</el-button>
             </el-form-item>
           </el-form>
         </div>
       </el-card>
 
       <div>
-        <OverlayPin></OverlayPin>
+        <OverlayPin :geometriesTest="geometries2"></OverlayPin>
       </div>
 
     </div>
@@ -107,7 +107,7 @@
 
 <script>
 import OverlayPin from "@/components/OverlayPin.vue";
-import { ref } from 'vue';
+import {computed, ref} from 'vue';
 import dayjs from 'dayjs';
 
 // 假设有一个函数可以优化活动顺序
@@ -261,6 +261,80 @@ export default {
       return allAttractions;
     };
 
+    const attractionsWithCoordinates = {
+      '北京': [
+        { value: '故宫博物院', lat: 39.916345, lng: 116.397155 },
+        { value: '长城', lat: 40.431908, lng: 116.570375 },
+        { value: '天安门广场', lat: 39.903740, lng: 116.397480 },
+        { value: '颐和园', lat: 39.999912, lng: 116.275475 },
+        { value: '天坛公园', lat: 39.882209, lng: 116.406414 },
+        { value: '南锣鼓巷', lat: 39.933708, lng: 116.407988 },
+        { value: '798艺术区', lat: 39.984104, lng: 116.497438 },
+        { value: '北海公园', lat: 39.928619, lng: 116.396799 },
+        { value: '圆明园', lat: 40.007634, lng: 116.310464 }
+      ],
+      '纽约': [
+        { value: '自由女神像', lat: 40.689247, lng: -74.044502 },
+        { value: '中央公园', lat: 40.785091, lng: -73.968285 },
+        { value: '时代广场', lat: 40.758896, lng: -73.985130 },
+        { value: '帝国大厦', lat: 40.748817, lng: -73.985428 },
+        { value: '大都会博物馆', lat: 40.779437, lng: -73.963244 },
+        { value: '布鲁克林大桥', lat: 40.706086, lng: -73.996864 },
+        { value: '百老汇', lat: 40.759011, lng: -73.984472 },
+        { value: '洛克菲勒中心', lat: 40.758740, lng: -73.978674 },
+        { value: '华尔街', lat: 40.707491, lng: -74.011276 }
+      ],
+      '洛杉矶': [
+        { value: '好莱坞标志', lat: 34.134115, lng: -118.321548 },
+        { value: '环球影城', lat: 34.138117, lng: -118.353378 },
+        { value: '迪士尼乐园', lat: 33.812092, lng: -117.918974 },
+        { value: '比佛利山庄', lat: 34.073620, lng: -118.400356 },
+        { value: '圣莫尼卡海滩', lat: 34.019454, lng: -118.491191 },
+        { value: '格里菲斯天文台', lat: 34.118434, lng: -118.300393 },
+        { value: '盖蒂中心', lat: 34.078036, lng: -118.474095 },
+        { value: '威尼斯海滩', lat: 33.985047, lng: -118.469483 },
+        { value: '星光大道', lat: 34.101558, lng: -118.326843 }
+      ]
+    };
+
+    // 获取指定景点的坐标
+    const getSpecificAttractionCoordinates = (cityName, attractionName) => {
+      const cityAttractions = attractionsWithCoordinates[cityName] || [];
+      const attraction = cityAttractions.find(a => a.value === attractionName);
+      if (attraction) {
+        return {
+          styleId: 'marker',
+          position: {
+            lat: attraction.lat,
+            lng: attraction.lng
+          }
+        };
+      }
+      return null;
+    };
+
+    // 获取到用户选择的所有景点的坐标数据
+    const getSelectedAttractionCoordinates = () => {
+      const selectedCity = tripData.value.destination;
+      const selectedAttractions = getAllInputAttractions();
+
+      console.log('geometries2: ',selectedAttractions.map(attractionName =>
+          getSpecificAttractionCoordinates(selectedCity, attractionName)
+      ).filter(coord => coord !== null));
+
+      return selectedAttractions.map(attractionName =>
+          getSpecificAttractionCoordinates(selectedCity, attractionName)
+      ).filter(coord => coord !== null);
+    };
+
+    const geometries2 = computed(() => {
+      let geometries = [];
+      getSelectedAttractionCoordinates();
+      geometries = getSelectedAttractionCoordinates()
+      return geometries;
+    });
+    console.log('geometries2: ',geometries2);
+
     return {
       destinations,
       tripData,
@@ -277,7 +351,11 @@ export default {
       submitPlan,
       generateItinerary,
       getAttractionsForDestination,
-      getAllInputAttractions
+      getAllInputAttractions,
+      attractionsWithCoordinates,
+      getSpecificAttractionCoordinates,
+      getSelectedAttractionCoordinates,
+      geometries2
     };
   }
 }
