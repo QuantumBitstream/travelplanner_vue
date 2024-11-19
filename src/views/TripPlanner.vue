@@ -64,7 +64,7 @@
 
             <!-- 生成行程计划 -->
             <el-form-item>
-              <el-button type="primary" @click="generateItinerary">生成行程计划</el-button>
+              <el-button type="primary" @click="generateItinerary();getAttractionsForDestination();getAllInputAttractions()">生成行程计划</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -243,6 +243,23 @@ export default {
       });
     };
 
+    const getAttractionsForDestination = () => {
+      const selectedCity = tripData.value.destination;
+      console.log('selectedCity: ', cityAttractions[selectedCity] || []);
+      return cityAttractions[selectedCity] || [];
+    };
+
+    // 返回输入的所有目的地景点的数组
+    const getAllInputAttractions = () => {
+      // 扁平化所有天数的活动数组，并提取景点名称
+      const allAttractions = tripData.value.activities
+          .flat() // 将二维数组扁平化为一维数组
+          .map(activity => activity.name) // 提取每个活动的名称
+          .filter((name, index, self) => name && self.indexOf(name) === index); // 去重
+      console.log('所有输入的景点：', allAttractions);
+      return allAttractions;
+    };
+
     return {
       destinations,
       tripData,
@@ -257,7 +274,9 @@ export default {
       fetchSuggestions,
       onSelectSuggestion,
       submitPlan,
-      generateItinerary
+      generateItinerary,
+      getAttractionsForDestination,
+      getAllInputAttractions
     };
   }
 }
