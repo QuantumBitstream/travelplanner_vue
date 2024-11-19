@@ -141,6 +141,7 @@ export default {
 
     const addActivity = () => {
       if (newActivity.value.trim() && newActivityDay.value) {
+        console.log('newActivityTime.value: ',newActivityTime.value);
         tripData.value.activities[newActivityDay.value - 1].push({
           name: newActivity.value.trim(),
           description: newActivityDescription.value.trim(),
