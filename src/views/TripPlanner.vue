@@ -61,7 +61,7 @@
                 <el-icon><MapLocation /></el-icon>
                 <span> 当前选中日期的景点: </span>
                 <ul>
-                  <li v-for="attraction in getInputAttractionsBySpecificDay(newActivityDay)"
+                  <li v-for="attraction in getInputAttractionsBySpecificDayCoordinates(newActivityDay)"
                       :key="attraction.name">
                     {{ attraction.name }} - {{ attraction.time }}
                   </li>
@@ -85,7 +85,7 @@
                          getAttractionsForDestination();
                          getAllInputAttractions();
                          getSelectedAttractionCoordinates();
-                         getInputAttractionsBySpecificDay();
+                         getInputAttractionsBySpecificDayCoordinates();
                          ">生成行程计划</el-button>
             </el-form-item>
           </el-form>
@@ -376,7 +376,7 @@ export default {
     console.log('geometries2: ',geometries2);
 
     // 获取到用户选择的当天的所有景点的坐标数据
-    const getInputAttractionsBySpecificDay = (day) => {
+    const getInputAttractionsBySpecificDayCoordinates = (day) => {
       // 检查天数是否有效
       if (day < 1 || day > tripData.value.days) {
         console.error(`无效的天数：${day}`);
@@ -411,8 +411,8 @@ export default {
 
     const geometries = computed(() => {
       // 使用当前选中的天数
-      console.log(` geometries computed 第${newActivityDay.value}天的景点数据：`, getInputAttractionsBySpecificDay(newActivityDay.value));
-      return getInputAttractionsBySpecificDay(newActivityDay.value);
+      console.log(` geometries computed 第${newActivityDay.value}天的景点数据：`, getInputAttractionsBySpecificDayCoordinates(newActivityDay.value));
+      return getInputAttractionsBySpecificDayCoordinates(newActivityDay.value);
     });
 
     return {
@@ -436,7 +436,7 @@ export default {
       getSpecificAttractionCoordinates,
       getSelectedAttractionCoordinates,
       geometries2,
-      getInputAttractionsBySpecificDay,
+      getInputAttractionsBySpecificDayCoordinates,
       geometries,
       getSpecificAttractionCoordinatesOfRoute
     };
