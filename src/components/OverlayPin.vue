@@ -193,6 +193,7 @@ export default {
             console.log(data);
             console.log('data.result.routes[0].polyline: ',data.result.routes[0].polyline)
             // array 方案路线坐标点串，可用于在地图中绘制路线（该点串经过压缩，解压请参考：polyline 坐标解压）
+            // https://lbs.qq.com/service/webService/webServiceGuide/route/webServiceRoute#8
             const coors = data.result.routes[0].polyline;
             const decompressed = [...coors];
             for (let i = 2; i < decompressed.length; i++) {
