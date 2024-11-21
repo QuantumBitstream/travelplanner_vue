@@ -29,9 +29,15 @@
 
   </tlbs-map>
 
-  <el-form-item>
-    <el-button type="primary" @click="updatePin">生成行程计划</el-button>
-  </el-form-item>
+
+    <el-button type="primary" @click="updatePin">
+      <el-icon><Coordinate /></el-icon>
+      <span style="vertical-align: middle"> pinAll </span></el-button>
+
+
+
+    <el-button type="primary" @click="updatePin">生成当天行程路线</el-button>
+
 
 </template>
 
