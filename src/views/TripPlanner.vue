@@ -57,6 +57,17 @@
               <el-button type="primary" @click="addActivity">添加活动</el-button>
             </el-form-item>
 
+            <!-- 在模板中显示特定天数的景点 -->
+            <div class="day-attractions">
+              <h4>当前选中日期的景点:</h4>
+              <ul>
+                <li v-for="attraction in getInputAttractionsBySpecificDay(newActivityDay)"
+                    :key="attraction.name">
+                  {{ attraction.name }} - {{ attraction.time }}
+                </li>
+              </ul>
+            </div>
+
             <!-- 提交按钮 -->
             <el-form-item>
               <el-button type="success" @click="submitPlan">提交计划</el-button>
@@ -71,7 +82,9 @@
       </el-card>
 
       <div>
-        <OverlayPin :geometriesTest="geometries2"></OverlayPin>
+        <OverlayPin
+            :geometriesTest="geometries2"
+            :geometriesRoute="geometries"></OverlayPin>
       </div>
 
     </div>
@@ -335,6 +348,45 @@ export default {
     });
     console.log('geometries2: ',geometries2);
 
+    const getInputAttractionsBySpecificDay = (day) => {
+      // 检查天数是否有效
+      if (day < 1 || day > tripData.value.days) {
+        console.error(`无效的天数：${day}`);
+        return [];
+      }
+
+      // 获取指定天数的活动
+      const dayActivities = tripData.value.activities[day - 1] || [];
+
+      // 获取选中的城市
+      const selectedCity = tripData.value.destination;
+
+      // 提取该天的景点信息并包含坐标
+      const attractionsWithCoordinates = dayActivities
+          .filter(activity => activity && activity.name)
+          .map(activity => {
+            const coordinates = getSpecificAttractionCoordinates(selectedCity, activity.name);
+            if (coordinates) {
+              return {
+                ...coordinates,
+                name: activity.name,
+                time: activity.time
+              };
+            }
+            return null;
+          })
+          .filter(attraction => attraction !== null);
+
+      console.log(`第${day}天的景点数据：`, attractionsWithCoordinates);
+      return attractionsWithCoordinates;
+    };
+
+    const geometries = computed(() => {
+      // 使用当前选中的天数
+      console.log(` geometries computed 第${newActivityDay.value}天的景点数据：`, getInputAttractionsBySpecificDay(newActivityDay.value));
+      return getInputAttractionsBySpecificDay(newActivityDay.value);
+    });
+
     return {
       destinations,
       tripData,
@@ -355,7 +407,9 @@ export default {
       attractionsWithCoordinates,
       getSpecificAttractionCoordinates,
       getSelectedAttractionCoordinates,
-      geometries2
+      geometries2,
+      getInputAttractionsBySpecificDay,
+      geometries,
     };
   }
 }
