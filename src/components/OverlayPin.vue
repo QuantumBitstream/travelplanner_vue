@@ -199,7 +199,8 @@ export default {
     },
     generateRoute() {
 
-      // this.geometries = this.geometriesRoute
+      this.geometries = this.geometriesRoute
+      console.log('geometries first', this.geometries)
       // console.log('this.geometriesRoute: ', this.geometriesRoute)
       // console.log('this.geometriesRoute[0].paths: ', this.geometriesRoute[0].paths)
 
