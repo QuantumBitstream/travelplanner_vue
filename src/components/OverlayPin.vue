@@ -92,33 +92,6 @@ export default {
             title: 'polyline',
           },
         },
-        // // 彩虹折线
-        // {
-        //   id: 'polyline2',
-        //   styleId: 'polyline',
-        //   rainbowPaths: [
-        //     {
-        //       path: [
-        //         { lat: 40.03819372750479, lng: 116.26842823488005 },
-        //         { lat: 40.03850574866959, lng: 116.27198887995291 },
-        //         { lat: 40.038932722719686, lng: 116.27529212938498 },
-        //       ],
-        //       color: '#ED273D',
-        //       borderColor: '#9C1C2A',
-        //     },
-        //     {
-        //       path: [
-        //         { lat: 40.038932722719686, lng: 116.27529212938498 },
-        //         { lat: 40.039540301341184, lng: 116.27835947187123 },
-        //       ],
-        //       color: '#2C68FF',
-        //       borderColor: '#004EE1',
-        //     },
-        //   ],
-        //   properties: {
-        //     title: 'polyline',
-        //   },
-        // },
       ],
       stylesOfLabel: {
         label: {
