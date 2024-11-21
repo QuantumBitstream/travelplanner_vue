@@ -173,7 +173,7 @@ export default {
       this.geometries2 = this.geometriesTest
       console.log('this.geometriesTest: ', this.geometriesTest)
 
-      // this.geometries = this.geometriesRoute
+      this.geometries = this.geometriesRoute
       console.log('this.geometriesRoute: ', this.geometriesRoute)
 
     }

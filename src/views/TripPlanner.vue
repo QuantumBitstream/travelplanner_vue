@@ -85,7 +85,7 @@
                          getAttractionsForDestination();
                          getAllInputAttractions();
                          getSelectedAttractionCoordinates();
-                         getInputAttractionsBySpecificDayCoordinates();
+                         getAllInputAttractionsBySpecificDayCoordinates();
                          ">生成行程计划</el-button>
             </el-form-item>
           </el-form>
@@ -418,10 +418,56 @@ export default {
       return attractionsWithCoordinates;
     };
 
+    // 获取指定天数的所有景点的坐标 geometries 格式
+    const getAllInputAttractionsBySpecificDayCoordinates = (day) => {
+      // 检查天数是否有效
+      if (day < 1 || day > tripData.value.days) {
+        console.error(`无效的天数：${day}`);
+        return [];
+      }
+
+      // 获取指定天数的活动
+      const dayActivities = tripData.value.activities[day - 1] || [];
+
+      // 获取选中的城市
+      const selectedCity = tripData.value.destination;
+
+      // 收集所有景点的坐标
+      const allPaths = dayActivities
+          .filter(activity => activity?.name)
+          .map(activity => {
+            const cityAttractions = attractionsWithCoordinates[selectedCity] || [];
+            const attraction = cityAttractions.find(a => a.value === activity.name);
+            if (attraction) {
+              return {
+                lat: attraction.lat,
+                lng: attraction.lng
+              };
+            }
+            return null;
+          })
+          .filter(coord => coord !== null);
+
+      // 如果没有有效的坐标点，返回空数组
+      if (allPaths.length === 0) {
+        return [];
+      }
+
+      // 返回包含所有景点坐标的单个路径
+      return [{
+        id: `polyline-day-${day}`,
+        styleId: 'polyline',
+        paths: allPaths,
+        properties: {
+          title: 'polyline',
+        }
+      }];
+    };
+
     const geometries = computed(() => {
       // 使用当前选中的天数
-      console.log(` geometries computed 第${newActivityDay.value}天的景点数据：`, getInputAttractionsBySpecificDayCoordinates(newActivityDay.value));
-      return getInputAttractionsBySpecificDayCoordinates(newActivityDay.value);
+      console.log(` geometries computed 第${newActivityDay.value}天的景点数据 geometries格式：`, getAllInputAttractionsBySpecificDayCoordinates(newActivityDay.value));
+      return getAllInputAttractionsBySpecificDayCoordinates(newActivityDay.value);
     });
 
     return {
@@ -446,6 +492,7 @@ export default {
       getSelectedAttractionCoordinates,
       geometries2,
       getInputAttractionsBySpecificDayCoordinates,
+      getAllInputAttractionsBySpecificDayCoordinates,
       geometries,
       getSpecificAttractionCoordinatesOfRoute
     };
