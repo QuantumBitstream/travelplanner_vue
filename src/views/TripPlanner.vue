@@ -358,22 +358,23 @@ export default {
       const selectedCity = tripData.value.destination;
       const selectedAttractions = getAllInputAttractions();
 
-      console.log('geometries2: ',selectedAttractions.map(attractionName =>
+      const geometries2 = selectedAttractions.map(attractionName =>
           getSpecificAttractionCoordinates(selectedCity, attractionName)
-      ).filter(coord => coord !== null));
+      ).filter(coord => coord !== null)
 
-      return selectedAttractions.map(attractionName =>
-          getSpecificAttractionCoordinates(selectedCity, attractionName)
-      ).filter(coord => coord !== null);
+      console.log('geometries2: ', geometries2);
+
+      return geometries2;
     };
 
     const geometries2 = computed(() => {
       let geometries = [];
       getSelectedAttractionCoordinates();
       geometries = getSelectedAttractionCoordinates()
+      console.log('geometries2: ',geometries);
       return geometries;
     });
-    console.log('geometries2: ',geometries2);
+
 
     // 获取到用户选择的当天的所有景点的坐标数据
     const getInputAttractionsBySpecificDayCoordinates = (day) => {
