@@ -179,7 +179,15 @@ export default {
       this.geometries = this.geometriesRoute
       console.log('this.geometriesRoute: ', this.geometriesRoute)
 
-      fetch('https://apis.map.qq.com/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77')
+      fetch('https://apis.map.qq.com/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
+          {
+            method: 'GET',
+            credentials: 'include', // 如果需要携带 cookies
+            mode: 'cors', // 启用 CORS 模式
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
           .then(response => response.json())
           .then(data => {
             console.log(data);
