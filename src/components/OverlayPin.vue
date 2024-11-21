@@ -178,6 +178,7 @@ export default {
 
       this.geometries = this.geometriesRoute
       console.log('this.geometriesRoute: ', this.geometriesRoute)
+      console.log('this.geometriesRoute[0].paths: ', this.geometriesRoute[0].paths)
 
       fetch('/api/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
           {
