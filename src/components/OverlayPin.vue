@@ -192,6 +192,14 @@ export default {
           .then(data => {
             console.log(data);
             console.log('data.result.routes[0].polyline: ',data.result.routes[0].polyline)
+            // array 方案路线坐标点串，可用于在地图中绘制路线（该点串经过压缩，解压请参考：polyline 坐标解压）
+            const coors = data.result.routes[0].polyline;
+            const decompressed = [...coors];
+            for (let i = 2; i < decompressed.length; i++) {
+              decompressed[i] = decompressed[i - 2] + decompressed[i] / 1000000;
+            }
+            console.log('data.result.routes[0].polyline(decompressed): ', decompressed);
+            return decompressed;
           })
           .catch(error => {
             console.error('Error fetching data:', error);
