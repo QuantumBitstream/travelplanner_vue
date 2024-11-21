@@ -201,7 +201,22 @@ export default {
               decompressed[i] = decompressed[i - 2] + decompressed[i] / 1000000;
             }
             console.log('data.result.routes[0].polyline(decompressed): ', decompressed);
-            return decompressed;
+
+            // 转换为指定格式 [{ lat: xx, lng: xx }, ...]
+            const formatted = [];
+            for (let i = 0; i < decompressed.length; i += 2) {
+              formatted.push({
+                lat: decompressed[i],
+                lng: decompressed[i + 1],
+              });
+            }
+            console.log('formatted: ', formatted);
+            return formatted;
+
+            // this.geometries[0].paths = decompressed
+            // console.log('this.geometries: ',this.geometries[0].paths)
+            // console.log('this.geometries: ',this.geometries)
+            // return this.geometries;
           })
           .catch(error => {
             console.error('Error fetching data:', error);
