@@ -16,7 +16,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       '/api': {
-        target: 'http://目标服务器地址', // 替换为你的后端服务器地址
+        target: 'https://apis.map.qq.com', // 替换为你的后端服务器地址
         changeOrigin: true, // 修改请求头中的 Origin 为目标地址
         pathRewrite: { '^/api': '' }, // 重写路径，将 /api 替换为空
         secure: false // 如果使用 HTTPS 且后端证书无效，设置为 false
