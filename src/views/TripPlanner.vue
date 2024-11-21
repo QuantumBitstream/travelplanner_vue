@@ -79,7 +79,13 @@
 
             <!-- 生成行程计划 -->
             <el-form-item>
-              <el-button type="primary" @click="generateItinerary();getAttractionsForDestination();getAllInputAttractions();getSelectedAttractionCoordinates()">生成行程计划</el-button>
+              <el-button type="primary"
+                         @click="
+                         generateItinerary();
+                         getAttractionsForDestination();
+                         getAllInputAttractions();
+                         getSelectedAttractionCoordinates();
+                         getSpecificAttractionCoordinatesOfRoute()">生成行程计划</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -314,8 +320,24 @@ export default {
       ]
     };
 
-    // 获取指定景点的坐标
+    // 获取指定景点的坐标 geometries2格式
     const getSpecificAttractionCoordinates = (cityName, attractionName) => {
+      const cityAttractions = attractionsWithCoordinates[cityName] || [];
+      const attraction = cityAttractions.find(a => a.value === attractionName);
+      if (attraction) {
+        return {
+          styleId: 'marker',
+          position: {
+            lat: attraction.lat,
+            lng: attraction.lng
+          }
+        };
+      }
+      return null;
+    };
+
+    // 获取指定景点的坐标 geometries格式
+    const getSpecificAttractionCoordinatesOfRoute = (cityName, attractionName) => {
       const cityAttractions = attractionsWithCoordinates[cityName] || [];
       const attraction = cityAttractions.find(a => a.value === attractionName);
       if (attraction) {
@@ -414,6 +436,7 @@ export default {
       geometries2,
       getInputAttractionsBySpecificDay,
       geometries,
+      getSpecificAttractionCoordinatesOfRoute
     };
   }
 }
