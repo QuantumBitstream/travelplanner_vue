@@ -55,18 +55,22 @@
                   format="HH:mm"
               />
               <el-button type="primary" @click="addActivity">添加活动</el-button>
+
+              <!-- 在模板中显示特定天数的景点 -->
+              <div class="day-attractions">
+                <el-icon><MapLocation /></el-icon>
+                <span> 当前选中日期的景点: </span>
+                <ul>
+                  <li v-for="attraction in getInputAttractionsBySpecificDay(newActivityDay)"
+                      :key="attraction.name">
+                    {{ attraction.name }} - {{ attraction.time }}
+                  </li>
+                </ul>
+              </div>
+
             </el-form-item>
 
-            <!-- 在模板中显示特定天数的景点 -->
-            <div class="day-attractions">
-              <h4>当前选中日期的景点:</h4>
-              <ul>
-                <li v-for="attraction in getInputAttractionsBySpecificDay(newActivityDay)"
-                    :key="attraction.name">
-                  {{ attraction.name }} - {{ attraction.time }}
-                </li>
-              </ul>
-            </div>
+
 
             <!-- 提交按钮 -->
             <el-form-item>
