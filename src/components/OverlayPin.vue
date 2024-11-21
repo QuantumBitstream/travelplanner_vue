@@ -300,7 +300,7 @@ export default {
       };
 
       // 可以根据需要调整缩放级别
-      this.zoom = 14;
+      this.zoom = 12;
     },
 
   },
