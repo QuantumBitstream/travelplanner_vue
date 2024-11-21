@@ -36,7 +36,7 @@
 
 
 
-    <el-button plain type="primary" @click="updatePin">
+    <el-button plain type="primary" @click="generateRoute">
       <el-icon><Position /></el-icon>
       <span style="vertical-align: middle"> 生成当天行程路线 </span></el-button>
 
@@ -173,9 +173,12 @@ export default {
       this.geometries2 = this.geometriesTest
       console.log('this.geometriesTest: ', this.geometriesTest)
 
+    },
+    generateRoute() {
+
       this.geometries = this.geometriesRoute
       console.log('this.geometriesRoute: ', this.geometriesRoute)
-
+      
     }
   },
 };
