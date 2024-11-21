@@ -215,7 +215,13 @@ export default {
           spinner: 'el-icon-loading',
         });
 
-        const response = await fetch('/api/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
+        const response = await fetch('/api/ws/direction/v1/driving?' +
+            new URLSearchParams({
+              from: '39.916345,116.397155',
+              to: '39.999912,116.275475',
+              output: 'json',
+              key: 'OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
+            }),
             {
               method: 'GET',
               credentials: 'include', // 如果需要携带 cookies
@@ -224,6 +230,9 @@ export default {
                 'Content-Type': 'application/json',
               },
             })
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
 
         console.log('this.geometries first:', this.geometries);
