@@ -174,11 +174,34 @@ export default {
       console.log('this.geometriesTest: ', this.geometriesTest)
 
     },
+    // 解压并转换为指定格式
+    decompressAndFormatPolyline(coors) {
+      // array 方案路线坐标点串，可用于在地图中绘制路线（该点串经过压缩，解压请参考：polyline 坐标解压）
+      // https://lbs.qq.com/service/webService/webServiceGuide/route/webServiceRoute#8
+      const decompressed = [...coors];
+      for (let i = 2; i < decompressed.length; i++) {
+        decompressed[i] = decompressed[i - 2] + decompressed[i] / 1000000;
+      }
+
+      console.log('data.result.routes[0].polyline(decompressed): ', decompressed);
+
+      // 转换为指定格式 [{ lat: xx, lng: xx }, ...]
+      const formatted = [];
+      for (let i = 0; i < decompressed.length; i += 2) {
+        formatted.push({
+          lat: decompressed[i],
+          lng: decompressed[i + 1],
+        });
+      }
+      console.log('formatted: ', formatted);
+
+      return formatted;
+    },
     generateRoute() {
 
-      this.geometries = this.geometriesRoute
-      console.log('this.geometriesRoute: ', this.geometriesRoute)
-      console.log('this.geometriesRoute[0].paths: ', this.geometriesRoute[0].paths)
+      // this.geometries = this.geometriesRoute
+      // console.log('this.geometriesRoute: ', this.geometriesRoute)
+      // console.log('this.geometriesRoute[0].paths: ', this.geometriesRoute[0].paths)
 
       fetch('/api/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
           {
@@ -196,27 +219,31 @@ export default {
             // array 方案路线坐标点串，可用于在地图中绘制路线（该点串经过压缩，解压请参考：polyline 坐标解压）
             // https://lbs.qq.com/service/webService/webServiceGuide/route/webServiceRoute#8
             const coors = data.result.routes[0].polyline;
-            const decompressed = [...coors];
-            for (let i = 2; i < decompressed.length; i++) {
-              decompressed[i] = decompressed[i - 2] + decompressed[i] / 1000000;
-            }
-            console.log('data.result.routes[0].polyline(decompressed): ', decompressed);
+            const formattedData = this.decompressAndFormatPolyline(coors);
+            // const decompressed = [...coors];
+            // for (let i = 2; i < decompressed.length; i++) {
+            //   decompressed[i] = decompressed[i - 2] + decompressed[i] / 1000000;
+            // }
+            // console.log('data.result.routes[0].polyline(decompressed): ', decompressed);
 
-            // 转换为指定格式 [{ lat: xx, lng: xx }, ...]
-            const formatted = [];
-            for (let i = 0; i < decompressed.length; i += 2) {
-              formatted.push({
-                lat: decompressed[i],
-                lng: decompressed[i + 1],
-              });
-            }
-            console.log('formatted: ', formatted);
-            return formatted;
+            // // 转换为指定格式 [{ lat: xx, lng: xx }, ...]
+            // const formatted = [];
+            // for (let i = 0; i < decompressed.length; i += 2) {
+            //   formatted.push({
+            //     lat: decompressed[i],
+            //     lng: decompressed[i + 1],
+            //   });
+            // }
+            // console.log('formatted: ', formatted);
+            // return formatted;
 
-            // this.geometries[0].paths = decompressed
+            this.geometries[0].paths = formattedData
+            console.log('this.geometries new:', this.geometries);
             // console.log('this.geometries: ',this.geometries[0].paths)
             // console.log('this.geometries: ',this.geometries)
             // return this.geometries;
+
+
           })
           .catch(error => {
             console.error('Error fetching data:', error);
