@@ -342,15 +342,23 @@ export default {
       const cityAttractions = attractionsWithCoordinates[cityName] || [];
       const attraction = cityAttractions.find(a => a.value === attractionName);
       if (attraction) {
-        return {
-          styleId: 'marker',
-          position: {
-            lat: attraction.lat,
-            lng: attraction.lng
-          }
-        };
+        // 生成围绕景点的多个坐标点，形成一个闭合路径
+        const baseLat = attraction.lat;
+        const baseLng = attraction.lng;
+
+        return [{
+          id: `polyline-${attractionName}`,
+          styleId: 'polyline',
+          paths: [
+            { lat: baseLat, lng: baseLng },
+          ],
+          properties: {
+            title: 'polyline',
+          },
+        }];
       }
-      return null;
+
+      return [];
     };
 
     // 获取到用户选择的所有景点的坐标数据
@@ -394,7 +402,7 @@ export default {
       const attractionsWithCoordinates = dayActivities
           .filter(activity => activity && activity.name)
           .map(activity => {
-            const coordinates = getSpecificAttractionCoordinates(selectedCity, activity.name);
+            const coordinates = getSpecificAttractionCoordinatesOfRoute(selectedCity, activity.name);
             if (coordinates) {
               return {
                 ...coordinates,
