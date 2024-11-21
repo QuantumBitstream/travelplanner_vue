@@ -85,7 +85,8 @@
                          getAttractionsForDestination();
                          getAllInputAttractions();
                          getSelectedAttractionCoordinates();
-                         getSpecificAttractionCoordinatesOfRoute()">生成行程计划</el-button>
+                         getInputAttractionsBySpecificDay();
+                         ">生成行程计划</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -374,6 +375,7 @@ export default {
     });
     console.log('geometries2: ',geometries2);
 
+    // 获取到用户选择的当天的所有景点的坐标数据
     const getInputAttractionsBySpecificDay = (day) => {
       // 检查天数是否有效
       if (day < 1 || day > tripData.value.days) {
@@ -403,7 +405,7 @@ export default {
           })
           .filter(attraction => attraction !== null);
 
-      console.log(`第${day}天的景点数据：`, attractionsWithCoordinates);
+      console.log(`第${day}天的景点数据 the day  attractionsWithCoordinates：`, attractionsWithCoordinates);
       return attractionsWithCoordinates;
     };
 

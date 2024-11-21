@@ -50,6 +50,10 @@ export default {
     geometriesTest: {
       type: Array,
       required: true
+    },
+    geometriesRoute: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -165,8 +169,13 @@ export default {
       console.log(e);
     },
     updatePin() {
+
       this.geometries2 = this.geometriesTest
       console.log('this.geometriesTest: ', this.geometriesTest)
+
+      // this.geometries = this.geometriesRoute
+      console.log('this.geometriesRoute: ', this.geometriesRoute)
+
     }
   },
 };
