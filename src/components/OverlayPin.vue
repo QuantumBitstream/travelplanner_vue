@@ -199,7 +199,9 @@ export default {
     },
     generateRoute() {
 
-      this.geometries = this.geometriesRoute
+      console.log('检查 this 是否是 Vue 实例', this ); // 检查 this 是否是 Vue 实例
+
+
       console.log('geometries first', this.geometries)
       console.log('this.geometriesRoute: ', this.geometriesRoute)
       // console.log('this.geometriesRoute[0].paths: ', this.geometriesRoute[0].paths)
@@ -239,12 +241,18 @@ export default {
             // console.log('formatted: ', formatted);
             // return formatted;
 
-            this.geometries[0].paths = formattedData
+            // 更新 geometries
+            // 在更新 this.geometries[0].paths 之前，先检查 this.geometries[0] 是否存在。如果不存在，则需要初始化
+            if (!this.geometries[0]) {
+              this.geometries[0] = { paths: [] }; // 初始化第一个元素
+            }
+            this.geometries[0].paths = formattedData;
             console.log('this.geometries new:', this.geometries);
             // console.log('this.geometries: ',this.geometries[0].paths)
             // console.log('this.geometries: ',this.geometries)
             // return this.geometries;
 
+            this.geometries = this.geometriesRoute
 
           })
           .catch(error => {
