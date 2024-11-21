@@ -178,7 +178,15 @@ export default {
 
       this.geometries = this.geometriesRoute
       console.log('this.geometriesRoute: ', this.geometriesRoute)
-      
+
+      fetch('https://apis.map.qq.com/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77')
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          })
+          .catch(error => {
+            console.error('Error fetching data:', error);
+          });
     }
   },
 };
