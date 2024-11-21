@@ -30,13 +30,15 @@
   </tlbs-map>
 
 
-    <el-button type="primary" @click="updatePin">
+    <el-button plain type="primary" @click="updatePin">
       <el-icon><Coordinate /></el-icon>
       <span style="vertical-align: middle"> pinAll </span></el-button>
 
 
 
-    <el-button type="primary" @click="updatePin">生成当天行程路线</el-button>
+    <el-button plain type="primary" @click="updatePin">
+      <el-icon><Position /></el-icon>
+      <span style="vertical-align: middle"> 生成当天行程路线 </span></el-button>
 
 
 </template>
