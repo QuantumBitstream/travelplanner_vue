@@ -214,6 +214,7 @@ export default {
           })
           .then(response => response.json())
           .then(data => {
+            console.log('this.geometries first:', this.geometries);
             console.log(data);
             console.log('data.result.routes[0].polyline: ',data.result.routes[0].polyline)
             // array 方案路线坐标点串，可用于在地图中绘制路线（该点串经过压缩，解压请参考：polyline 坐标解压）
