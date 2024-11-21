@@ -197,7 +197,7 @@ export default {
 
       return formatted;
     },
-    generateRoute() {
+    async generateRoute() {
 
       console.log('检查 this 是否是 Vue 实例', this ); // 检查 this 是否是 Vue 实例
 
@@ -206,59 +206,42 @@ export default {
       console.log('this.geometriesRoute: ', this.geometriesRoute)
       // console.log('this.geometriesRoute[0].paths: ', this.geometriesRoute[0].paths)
 
-      fetch('/api/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
-          {
-            method: 'GET',
-            credentials: 'include', // 如果需要携带 cookies
-            mode: 'cors', // 启用 CORS 模式
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          })
-          .then(response => response.json())
-          .then(data => {
-            console.log('this.geometries first:', this.geometries);
-            console.log(data);
-            console.log('data.result.routes[0].polyline: ',data.result.routes[0].polyline)
-            // array 方案路线坐标点串，可用于在地图中绘制路线（该点串经过压缩，解压请参考：polyline 坐标解压）
-            // https://lbs.qq.com/service/webService/webServiceGuide/route/webServiceRoute#8
-            const coors = data.result.routes[0].polyline;
-            const formattedData = this.decompressAndFormatPolyline(coors);
-            // const decompressed = [...coors];
-            // for (let i = 2; i < decompressed.length; i++) {
-            //   decompressed[i] = decompressed[i - 2] + decompressed[i] / 1000000;
-            // }
-            // console.log('data.result.routes[0].polyline(decompressed): ', decompressed);
+      try {
+        const response = await fetch('/api/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
+            {
+              method: 'GET',
+              credentials: 'include', // 如果需要携带 cookies
+              mode: 'cors', // 启用 CORS 模式
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            })
+        const data = await response.json();
 
-            // // 转换为指定格式 [{ lat: xx, lng: xx }, ...]
-            // const formatted = [];
-            // for (let i = 0; i < decompressed.length; i += 2) {
-            //   formatted.push({
-            //     lat: decompressed[i],
-            //     lng: decompressed[i + 1],
-            //   });
-            // }
-            // console.log('formatted: ', formatted);
-            // return formatted;
+        console.log('this.geometries first:', this.geometries);
+        console.log(data);
+        console.log('data.result.routes[0].polyline: ', data.result.routes[0].polyline)
+        // array 方案路线坐标点串，可用于在地图中绘制路线（该点串经过压缩，解压请参考：polyline 坐标解压）
+        // https://lbs.qq.com/service/webService/webServiceGuide/route/webServiceRoute#8
+        const coors = data.result.routes[0].polyline;
+        const formattedData = this.decompressAndFormatPolyline(coors);
 
-            // 更新 geometries
-            // 在更新 this.geometries[0].paths 之前，先检查 this.geometries[0] 是否存在。如果不存在，则需要初始化
-            if (!this.geometries[0]) {
-              this.geometries[0] = { paths: [] }; // 初始化第一个元素
-            }
-            this.geometries[0].paths = formattedData;
-            console.log('this.geometries new:', this.geometries);
-            // console.log('this.geometries: ',this.geometries[0].paths)
-            // console.log('this.geometries: ',this.geometries)
-            // return this.geometries;
+        // 更新 geometries
+        // 在更新 this.geometries[0].paths 之前，先检查 this.geometries[0] 是否存在。如果不存在，则需要初始化
+        if (!this.geometries[0]) {
+          this.geometries[0] = {paths: []}; // 初始化第一个元素
+        }
+        this.geometries[0].paths = formattedData;
+        console.log('this.geometries new:', this.geometries);
 
-            this.geometries = this.geometriesRoute
+        // this.geometries = this.geometriesRoute
 
-          })
-          .catch(error => {
-            console.error('Error fetching data:', error);
-          });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+          }
+
     }
+
   },
 };
 </script>
