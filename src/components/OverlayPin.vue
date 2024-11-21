@@ -231,7 +231,15 @@ export default {
         if (!this.geometries[0]) {
           this.geometries[0] = {paths: []}; // 初始化第一个元素
         }
-        this.geometries[0].paths = formattedData;
+        // // 更新路线数据
+        // this.geometries[0].paths = formattedData;
+        // 更新路线数据
+        this.geometries = [{
+          id: 'polyline1',
+          styleId: 'polyline',
+          paths: formattedData,
+          properties: { title: 'polyline' },
+        }];
         console.log('this.geometries new:', this.geometries);
 
         // this.geometries = this.geometriesRoute
