@@ -207,6 +207,14 @@ export default {
       // console.log('this.geometriesRoute[0].paths: ', this.geometriesRoute[0].paths)
 
       try {
+
+        // 显示加载状态
+        this.$loading({
+          lock: true,
+          text: '正在生成路线...',
+          spinner: 'el-icon-loading',
+        });
+
         const response = await fetch('/api/ws/direction/v1/driving?from=39.916345,116.397155&to=39.999912,116.275475&output=json&callback=cb&key=OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
             {
               method: 'GET',
@@ -242,13 +250,49 @@ export default {
         }];
         console.log('this.geometries new:', this.geometries);
 
+        // 更新地图视野以包含整条路线
+        this.updateMapView(formattedData);
+
         // this.geometries = this.geometriesRoute
 
       } catch (error) {
         console.error('Error fetching data:', error);
-          }
+      } finally {
+        // 关闭加载状态
+        this.$loading().close();
+      }
 
-    }
+    },
+
+    updateMapView(paths) {
+      if (!paths.length) return;
+
+      // 计算路线的边界
+      const bounds = paths.reduce(
+          (acc, point) => {
+            acc.minLat = Math.min(acc.minLat, point.lat);
+            acc.maxLat = Math.max(acc.maxLat, point.lat);
+            acc.minLng = Math.min(acc.minLng, point.lng);
+            acc.maxLng = Math.max(acc.maxLng, point.lng);
+            return acc;
+          },
+          {
+            minLat: paths[0].lat,
+            maxLat: paths[0].lat,
+            minLng: paths[0].lng,
+            maxLng: paths[0].lng,
+          }
+      );
+
+      // 更新地图中心点和缩放级别
+      this.center = {
+        lat: (bounds.minLat + bounds.maxLat) / 2,
+        lng: (bounds.minLng + bounds.maxLng) / 2,
+      };
+
+      // 可以根据需要调整缩放级别
+      this.zoom = 14;
+    },
 
   },
 };
