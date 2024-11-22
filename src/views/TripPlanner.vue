@@ -54,6 +54,17 @@
                   value-format="HH:mm"
                   format="HH:mm"
               />
+
+              <!--              const selectedDay = ref('1');-->
+              <!--              ref 创建的响应式数据，Vue 实际上创建了一个响应式对象，大致结构如下：-->
+              <!--              -->
+              <!--              // ref 内部实现的简化版本-->
+              <!--              {-->
+              <!--              value: 'Monday',  // 实际值-->
+              <!--              __v_isRef: true,  // 标记这是一个 ref 对象-->
+              <!--              // 别的响应式相关的属性和方法-->
+              <!--              }-->
+
               <!--              模板会自动解包，不需要 .value-->
               <!--              javascript需要使用 .value-->
               <el-button type="primary" @click="addActivity();getSelectDayInputAttractions(newActivityDay)">添加活动</el-button>
@@ -381,6 +392,16 @@ export default {
       }
       return null;
     };
+
+    // const selectedDay = ref('1');
+    // ref 创建的响应式数据，Vue 实际上创建了一个响应式对象，大致结构如下：
+    //
+    // // ref 内部实现的简化版本
+    // {
+    //   value: 'Monday',  // 实际值
+    //       __v_isRef: true,  // 标记这是一个 ref 对象
+    //   // 别的响应式相关的属性和方法
+    // }
 
     // 模板会自动解包，不需要 .value
     // javascript需要使用 .value
