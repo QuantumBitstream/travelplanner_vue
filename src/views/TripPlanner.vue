@@ -380,11 +380,11 @@ export default {
       return null;
     };
 
-    const geometriesLabel = computed((newActivityDay) => {
+    const geometriesLabel = computed(() => {
       let geometriesLabelTest = [];
-      getSelectedAttractionCoordinatesByFormatLabel(newActivityDay);
-      geometriesLabelTest = getSelectedAttractionCoordinatesByFormatLabel(newActivityDay)
-      console.log(' computed select day  geometriesLabel: ',geometriesLabelTest);
+      getSelectedAttractionCoordinatesByFormatLabel(1);
+      geometriesLabelTest = getSelectedAttractionCoordinatesByFormatLabel(1)
+      console.log(' test computed select day  geometriesLabel: ',geometriesLabelTest);
       return geometriesLabelTest;
     });
 
@@ -459,7 +459,7 @@ export default {
       let geometries = [];
       getSelectedAttractionCoordinates();
       geometries = getSelectedAttractionCoordinates()
-      console.log(' computed geometries2: ',geometries);
+      console.log(' test computed geometries2: ',geometries);
       return geometries;
     });
 
