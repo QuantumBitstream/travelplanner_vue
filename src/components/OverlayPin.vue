@@ -188,10 +188,31 @@ export default {
           spinner: 'el-icon-loading',
         });
 
+
+        console.log('test user input points - this.geometriesRoute[0].paths: ', this.geometriesRoute[0].paths)
+
+        // 假设 geometriesRoute[0].paths 是一个包含坐标的数组
+        const paths = this.geometriesRoute[0].paths;
+
+        // 验证路径数据是否有效
+        if (!paths || paths.length < 2) {
+          throw new Error('路径数据无效，至少需要两个点');
+        }
+
+        // 获取起点、终点和途经点
+        const from = `${paths[0].lat},${paths[0].lng}`; // 起点坐标
+        const to = `${paths[paths.length - 1].lat},${paths[paths.length - 1].lng}`; // 终点坐标
+
+        // 提取途经点（中间的点）
+        const waypoints = paths.slice(1, paths.length - 1) // 去掉第一个和最后一个点
+            .map(point => `${point.lat},${point.lng}`) // 转换为字符串格式
+            .join(';'); // 用分号分隔多个途经点
+
         const response = await fetch('/api/ws/direction/v1/driving?' +
             new URLSearchParams({
-              from: '39.916345,116.397155',
-              to: '39.999912,116.275475',
+              from, // 起点
+              to,   // 终点
+              waypoints, // 途经点
               output: 'json',
               key: 'OB4BZ-D4W3U-B7VVO-4PJWW-6TKDJ-WPB77',
             }),
