@@ -322,6 +322,22 @@ export default {
     };
 
     // 获取指定景点的坐标 geometries2格式
+    const getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel = (cityName, attractionName) => {
+      const cityAttractions = attractionsWithCoordinates[cityName] || [];
+      const attraction = cityAttractions.find(a => a.value === attractionName);
+      if (attraction) {
+        return {
+          styleId: 'marker',
+          position: {
+            lat: attraction.lat,
+            lng: attraction.lng
+          }
+        };
+      }
+      return null;
+    };
+
+    // 获取指定景点的坐标 geometries2格式
     const getSpecificAttractionCoordinates = (cityName, attractionName) => {
       const cityAttractions = attractionsWithCoordinates[cityName] || [];
       const attraction = cityAttractions.find(a => a.value === attractionName);
@@ -494,7 +510,8 @@ export default {
       getInputAttractionsBySpecificDayCoordinates,
       getAllInputAttractionsBySpecificDayCoordinates,
       geometries,
-      getSpecificAttractionCoordinatesOfRoute
+      getSpecificAttractionCoordinatesOfRoute,
+      getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel
     };
   }
 }
