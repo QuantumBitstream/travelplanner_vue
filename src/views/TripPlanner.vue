@@ -86,7 +86,7 @@
                          getAllInputAttractions();
                          getSelectedAttractionCoordinates();
                          getAllInputAttractionsBySpecificDayCoordinates();
-                         getSelectedAttractionCoordinatesByFormatLabel();
+                         getSelectedAttractionCoordinatesByFormatLabel(newActivityDay);
                          ">生成行程计划</el-button>
             </el-form-item>
           </el-form>
@@ -384,7 +384,7 @@ export default {
       let geometriesLabelTest = [];
       getSelectedAttractionCoordinatesByFormatLabel();
       geometriesLabelTest = getSelectedAttractionCoordinatesByFormatLabel()
-      console.log('geometriesLabel: ',geometriesLabelTest);
+      console.log(' computed select day  geometriesLabel: ',geometriesLabelTest);
       return geometriesLabelTest;
     });
 
@@ -412,8 +412,22 @@ export default {
       return [];
     };
 
+    // 获取到用户选择的select day所有景点的坐标数据 formatLabel
+    const getSelectedAttractionCoordinatesByFormatLabel = (day) => {
+      const selectedCity = tripData.value.destination;
+      const selectedAttractions = getSelectDayInputAttractions(day);
+
+      const geometriesLabel = selectedAttractions.map(attractionName =>
+          getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel(selectedCity, attractionName)
+      ).filter(coord => coord !== null)
+
+      console.log('select day  geometriesLabel: ', geometriesLabel);
+
+      return geometriesLabel;
+    };
+
     // 获取到用户选择的所有景点的坐标数据 formatLabel
-    const getSelectedAttractionCoordinatesByFormatLabel = () => {
+    const getAllSelectedAttractionCoordinatesByFormatLabel = () => {
       const selectedCity = tripData.value.destination;
       const selectedAttractions = getAllInputAttractions();
 
@@ -425,6 +439,7 @@ export default {
 
       return geometriesLabel;
     };
+
 
     // 获取到用户选择的所有景点的坐标数据
     const getSelectedAttractionCoordinates = () => {
@@ -564,6 +579,7 @@ export default {
       geometriesLabel,
       getSelectedAttractionCoordinatesByFormatLabel,
       getSelectDayInputAttractions,
+      getAllSelectedAttractionCoordinatesByFormatLabel,
     };
   }
 }
