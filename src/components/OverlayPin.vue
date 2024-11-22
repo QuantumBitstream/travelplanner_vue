@@ -181,7 +181,7 @@ export default {
     },
     async generateRoute() {
 
-      this.geometriesOfLabel = this.geometriesLabelTest
+      // this.geometriesOfLabel = this.geometriesLabelTest
       console.log('this.geometriesOfLabel: ', this.geometriesLabelTest)
 
       console.log('检查 this 是否是 Vue 实例', this ); // 检查 this 是否是 Vue 实例

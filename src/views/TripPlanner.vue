@@ -348,6 +348,7 @@ export default {
       if (attraction) {
         return {
           styleId: 'marker',
+          content: attractionName,
           position: {
             lat: attraction.lat,
             lng: attraction.lng
