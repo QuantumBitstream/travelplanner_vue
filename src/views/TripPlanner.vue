@@ -54,6 +54,8 @@
                   value-format="HH:mm"
                   format="HH:mm"
               />
+              <!--              模板会自动解包，不需要 .value-->
+              <!--              javascript需要使用 .value-->
               <el-button type="primary" @click="addActivity();getSelectDayInputAttractions(newActivityDay)">添加活动</el-button>
 
               <!-- 在模板中显示特定天数的景点 -->
@@ -380,6 +382,8 @@ export default {
       return null;
     };
 
+    // 模板会自动解包，不需要 .value
+    // javascript需要使用 .value
     const geometriesLabel = computed(() => {
       let geometriesLabelTest = [];
       getSelectedAttractionCoordinatesByFormatLabel(newActivityDay.value);
