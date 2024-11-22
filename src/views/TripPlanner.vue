@@ -95,7 +95,8 @@
       <div>
         <OverlayPin
             :geometriesTest="geometries2"
-            :geometriesRoute="geometries"></OverlayPin>
+            :geometriesRoute="geometries"
+            :geometriesLabel="geometriesLabel"></OverlayPin>
       </div>
 
     </div>
@@ -327,7 +328,9 @@ export default {
       const attraction = cityAttractions.find(a => a.value === attractionName);
       if (attraction) {
         return {
-          styleId: 'marker',
+          id: attraction,
+          styleId: 'label',
+          content: attraction,
           position: {
             lat: attraction.lat,
             lng: attraction.lng
@@ -352,6 +355,14 @@ export default {
       }
       return null;
     };
+
+    const geometriesLabel = computed(() => {
+      let geometries = [];
+      getSpecificAttractionCoordinates();
+      geometries = getSpecificAttractionCoordinates()
+      console.log('geometriesLabel: ',geometries);
+      return geometries;
+    });
 
     // 获取指定景点的坐标 geometries格式
     const getSpecificAttractionCoordinatesOfRoute = (cityName, attractionName) => {
@@ -511,7 +522,8 @@ export default {
       getAllInputAttractionsBySpecificDayCoordinates,
       geometries,
       getSpecificAttractionCoordinatesOfRoute,
-      getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel
+      getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel,
+      geometriesLabel,
     };
   }
 }
