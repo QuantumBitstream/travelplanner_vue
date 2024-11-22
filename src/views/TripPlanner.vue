@@ -382,8 +382,8 @@ export default {
 
     const geometriesLabel = computed(() => {
       let geometriesLabelTest = [];
-      getSelectedAttractionCoordinatesByFormatLabel(1);
-      geometriesLabelTest = getSelectedAttractionCoordinatesByFormatLabel(1)
+      getSelectedAttractionCoordinatesByFormatLabel(newActivityDay.value);
+      geometriesLabelTest = getSelectedAttractionCoordinatesByFormatLabel(newActivityDay.value)
       console.log(' test computed select day  geometriesLabel: ',geometriesLabelTest);
       return geometriesLabelTest;
     });
