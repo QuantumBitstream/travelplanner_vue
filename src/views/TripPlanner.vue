@@ -357,8 +357,8 @@ export default {
 
     const geometriesLabel = computed(() => {
       let geometriesLabelTest = [];
-      getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel();
-      geometriesLabelTest = getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel()
+      getSelectedAttractionCoordinatesByFormatLabel();
+      geometriesLabelTest = getSelectedAttractionCoordinatesByFormatLabel()
       console.log('geometriesLabel: ',geometriesLabelTest);
       return geometriesLabelTest;
     });
