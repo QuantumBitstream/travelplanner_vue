@@ -459,7 +459,7 @@ export default {
       let geometries = [];
       getSelectedAttractionCoordinates();
       geometries = getSelectedAttractionCoordinates()
-      console.log('geometries2: ',geometries);
+      console.log(' computed geometries2: ',geometries);
       return geometries;
     });
 
