@@ -24,7 +24,7 @@
     <tlbs-multi-label
         :geometries="geometriesOfLabel"
         :styles="stylesOfLabel"
-        :options="options"
+        :options="optionsOfLabel"
     />
 
   </tlbs-map>
@@ -138,6 +138,11 @@ export default {
       options: {
         zIndex: 1,
       },
+      optionsOfLabel: {
+        collisionOptions: {
+          sameSource: true, // 是否开启图层内碰撞，优先级按rank进行碰撞
+        },
+      },
 
     };
   },
@@ -176,7 +181,7 @@ export default {
     },
     async generateRoute() {
 
-      // this.geometriesOfLabel = this.geometriesLabelTest
+      this.geometriesOfLabel = this.geometriesLabelTest
       console.log('this.geometriesOfLabel: ', this.geometriesLabelTest)
 
       console.log('检查 this 是否是 Vue 实例', this ); // 检查 this 是否是 Vue 实例

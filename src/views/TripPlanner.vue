@@ -329,7 +329,9 @@ export default {
       const attraction = cityAttractions.find(a => a.value === attractionName);
       if (attraction) {
         return {
-          styleId: 'marker',
+          id: attraction.id,
+          styleId: 'label',
+          content: attractionName,
           position: {
             lat: attraction.lat,
             lng: attraction.lng
