@@ -54,7 +54,7 @@
                   value-format="HH:mm"
                   format="HH:mm"
               />
-              <el-button type="primary" @click="addActivity">添加活动</el-button>
+              <el-button type="primary" @click="addActivity();getSelectDayInputAttractions(newActivityDay)">添加活动</el-button>
 
               <!-- 在模板中显示特定天数的景点 -->
               <div class="day-attractions">
