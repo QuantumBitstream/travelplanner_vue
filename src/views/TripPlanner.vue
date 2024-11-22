@@ -275,6 +275,28 @@ export default {
       return cityAttractions[selectedCity] || [];
     };
 
+    // 返回select day输入的所有景点的数组
+    const getSelectDayInputAttractions = (day) => {
+
+      // 检查天数是否有效
+      if (day < 1 || day > tripData.value.days) {
+        console.error(`无效的天数：${day}`);
+        return [];
+      }
+
+      // 获取指定天数的活动
+      const dayActivities = tripData.value.activities[day - 1] || [];
+
+      // 扁平化select day的活动数组，并提取景点名称
+      console.log('getSelectDayInputAttractions dayActivities：', dayActivities);
+      const selectDayallAttractions = dayActivities
+          .flat() // 将二维数组扁平化为一维数组
+          .map(activity => activity.name) // 提取每个活动的名称
+          .filter((name, index, self) => name && self.indexOf(name) === index); // 去重
+      console.log('getSelectDayInputAttractions 所有输入的景点：', selectDayallAttractions);
+      return selectDayallAttractions;
+    };
+
     // 返回输入的所有目的地景点的数组
     const getAllInputAttractions = () => {
       // 扁平化所有天数的活动数组，并提取景点名称
@@ -540,7 +562,8 @@ export default {
       getSpecificAttractionCoordinatesOfRoute,
       getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel,
       geometriesLabel,
-      getSelectedAttractionCoordinatesByFormatLabel
+      getSelectedAttractionCoordinatesByFormatLabel,
+      getSelectDayInputAttractions,
     };
   }
 }
