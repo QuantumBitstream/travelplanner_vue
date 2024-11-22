@@ -96,7 +96,7 @@
         <OverlayPin
             :geometriesTest="geometries2"
             :geometriesRoute="geometries"
-            :geometriesLabel="geometriesLabel"></OverlayPin>
+            :geometriesLabelTest="geometriesLabel"></OverlayPin>
       </div>
 
     </div>
