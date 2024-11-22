@@ -86,6 +86,7 @@
                          getAllInputAttractions();
                          getSelectedAttractionCoordinates();
                          getAllInputAttractionsBySpecificDayCoordinates();
+                         getSelectedAttractionCoordinatesByFormatLabel();
                          ">生成行程计划</el-button>
             </el-form-item>
           </el-form>
@@ -322,15 +323,13 @@ export default {
       ]
     };
 
-    // 获取指定景点的坐标 geometries2格式
+    // 获取指定景点的坐标 geometriesLabel格式
     const getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel = (cityName, attractionName) => {
       const cityAttractions = attractionsWithCoordinates[cityName] || [];
       const attraction = cityAttractions.find(a => a.value === attractionName);
       if (attraction) {
         return {
-          id: attraction,
-          styleId: 'label',
-          content: attraction,
+          styleId: 'marker',
           position: {
             lat: attraction.lat,
             lng: attraction.lng
@@ -357,11 +356,11 @@ export default {
     };
 
     const geometriesLabel = computed(() => {
-      let geometries = [];
-      getSpecificAttractionCoordinates();
-      geometries = getSpecificAttractionCoordinates()
-      console.log('geometriesLabel: ',geometries);
-      return geometries;
+      let geometriesLabelTest = [];
+      getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel();
+      geometriesLabelTest = getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel()
+      console.log('geometriesLabel: ',geometriesLabelTest);
+      return geometriesLabelTest;
     });
 
     // 获取指定景点的坐标 geometries格式
@@ -386,6 +385,20 @@ export default {
       }
 
       return [];
+    };
+
+    // 获取到用户选择的所有景点的坐标数据 formatLabel
+    const getSelectedAttractionCoordinatesByFormatLabel = () => {
+      const selectedCity = tripData.value.destination;
+      const selectedAttractions = getAllInputAttractions();
+
+      const geometriesLabel = selectedAttractions.map(attractionName =>
+          getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel(selectedCity, attractionName)
+      ).filter(coord => coord !== null)
+
+      console.log('geometriesLabel: ', geometriesLabel);
+
+      return geometriesLabel;
     };
 
     // 获取到用户选择的所有景点的坐标数据
@@ -524,6 +537,7 @@ export default {
       getSpecificAttractionCoordinatesOfRoute,
       getSpecificAttractionCoordinatesByFormatOfgeometriesOfLabel,
       geometriesLabel,
+      getSelectedAttractionCoordinatesByFormatLabel
     };
   }
 }
