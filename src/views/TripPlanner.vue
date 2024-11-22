@@ -275,7 +275,7 @@ export default {
       return cityAttractions[selectedCity] || [];
     };
 
-    // 返回select day输入的所有景点的数组
+    // 返回select day输入的所有景点的数组 ['a','b']
     const getSelectDayInputAttractions = (day) => {
 
       // 检查天数是否有效
@@ -297,7 +297,7 @@ export default {
       return selectDayallAttractions;
     };
 
-    // 返回输入的所有目的地景点的数组
+    // 返回输入的所有目的地景点的数组 ['a','b']
     const getAllInputAttractions = () => {
       // 扁平化所有天数的活动数组，并提取景点名称
       console.log('tripData.value.activities：', tripData.value.activities);
