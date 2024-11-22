@@ -380,10 +380,10 @@ export default {
       return null;
     };
 
-    const geometriesLabel = computed(() => {
+    const geometriesLabel = computed((newActivityDay) => {
       let geometriesLabelTest = [];
-      getSelectedAttractionCoordinatesByFormatLabel();
-      geometriesLabelTest = getSelectedAttractionCoordinatesByFormatLabel()
+      getSelectedAttractionCoordinatesByFormatLabel(newActivityDay);
+      geometriesLabelTest = getSelectedAttractionCoordinatesByFormatLabel(newActivityDay)
       console.log(' computed select day  geometriesLabel: ',geometriesLabelTest);
       return geometriesLabelTest;
     });
