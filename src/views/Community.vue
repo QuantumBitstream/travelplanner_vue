@@ -37,7 +37,14 @@
                 class="submit-btn"
                 @click="submitPost"
             >
-              发布帖子
+              {{ isEditing ? "保存修改" : "发布帖子" }}
+            </el-button>
+            <el-button
+                v-if="isEditing"
+                type="default"
+                @click="cancelEdit"
+            >
+              取消编辑
             </el-button>
           </el-form-item>
         </el-form>
@@ -84,6 +91,20 @@
             >
               收藏
             </el-button>
+            <el-button
+                type="text"
+                icon="el-icon-edit"
+                @click="editPost(post)"
+            >
+              编辑
+            </el-button>
+            <el-button
+                type="text"
+                icon="el-icon-delete"
+                @click="deletePost(post.id)"
+            >
+              删除
+            </el-button>
           </div>
         </div>
       </el-card>
@@ -100,6 +121,8 @@ export default {
         title: "",
         content: ""
       },
+      isEditing: false, // 是否处于编辑状态
+      editingPostId: null, // 当前正在编辑的帖子ID
       posts: [
         {
           id: 1,
@@ -135,25 +158,59 @@ export default {
     };
   },
   methods: {
-    // 发布帖子
+    // 发布或保存帖子
     submitPost() {
       if (this.newPost.title.trim() && this.newPost.content.trim()) {
-        const newPost = {
-          id: this.posts.length + 1,
-          title: this.newPost.title.trim(),
-          content: this.newPost.content.trim(),
-          timestamp: Math.floor(Date.now() / 1000), // 当前时间戳
-          likes: 0,
-          isLiked: false,
-          isFavorite: false
-        };
-        this.posts.unshift(newPost);
+        if (this.isEditing) {
+          // 编辑模式：保存修改
+          const post = this.posts.find(p => p.id === this.editingPostId);
+          if (post) {
+            post.title = this.newPost.title.trim();
+            post.content = this.newPost.content.trim();
+            this.$message.success("帖子修改成功！");
+          }
+          this.cancelEdit();
+        } else {
+          // 发布新帖子
+          const newPost = {
+            id: this.posts.length + 1,
+            title: this.newPost.title.trim(),
+            content: this.newPost.content.trim(),
+            timestamp: Math.floor(Date.now() / 1000), // 当前时间戳
+            likes: 0,
+            isLiked: false,
+            isFavorite: false
+          };
+          this.posts.unshift(newPost);
+          this.$message.success("您的帖子已发布！");
+        }
         this.newPost.title = "";
         this.newPost.content = "";
-        this.$message.success("您的帖子已发布！");
       } else {
         this.$message.warning("标题和内容不能为空，请填写完整！");
       }
+    },
+
+    // 编辑帖子
+    editPost(post) {
+      this.isEditing = true;
+      this.editingPostId = post.id;
+      this.newPost.title = post.title;
+      this.newPost.content = post.content;
+    },
+
+    // 取消编辑
+    cancelEdit() {
+      this.isEditing = false;
+      this.editingPostId = null;
+      this.newPost.title = "";
+      this.newPost.content = "";
+    },
+
+    // 删除帖子
+    deletePost(postId) {
+      this.posts = this.posts.filter(post => post.id !== postId);
+      this.$message.success("帖子已删除！");
     },
 
     // 格式化时间戳
