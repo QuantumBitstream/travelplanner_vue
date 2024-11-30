@@ -25,7 +25,7 @@
       <div class="search-box">
         <el-input
             v-model="searchText"
-            placeholder="搜索目的地、景点、攻略..."
+            placeholder="搜索目的地... 请输入城市名称（如：洛杉矶）"
             class="search-input"
             prefix-icon="el-icon-search"
         >
@@ -163,11 +163,13 @@ export default {
   },
   methods: {
     handleSearch() {
-      if (!this.searchText.trim()) return
-      this.$router.push({
-        path: '/search',
-        query: { q: this.searchText }
-      })
+      // 如果输入的内容是“洛杉矶”，跳转到 SearchDetails 页面
+      if (this.searchText.trim().toLowerCase() === "洛杉矶") {
+        this.$router.push({ name: "SearchDetails", params: { city: "洛杉矶" } });
+      } else {
+        alert("未找到相关城市，请输入“洛杉矶”进行搜索！");
+      }
+
     },
     handleExplore(banner) {
       console.log('探索:', banner)

@@ -14,6 +14,11 @@ export const publicRoutes = [
         component: () => import('@/views/Home.vue')
     },
     {
+        path: "/search-details/:city",
+        name: "SearchDetails",
+        component: () => import('@/views/SearchDetails.vue')
+    },
+    {
         path: '/destinations',
         name: 'Destinations',
         component: () => import('@/views/Destinations.vue')
