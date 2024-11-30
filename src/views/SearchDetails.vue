@@ -119,7 +119,7 @@ export default {
         {
           id: 3,
           name: "格里菲斯天文台",
-          imageUrl: require("@/assets/images/la/universal-studios.png"),
+          imageUrl: require("@/assets/images/la/Griffith Observatory.png"),
           description: "俯瞰洛杉矶全景的最佳地点，夜晚星空尤为迷人。这里不仅可以观测星空，还能欣赏到好莱坞标志和洛杉矶市区全景。",
           rating: "4.8",
           isFavorite: false
