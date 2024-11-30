@@ -6,21 +6,21 @@ const state = {
     destinations: [
         {
             id: 1,
-            name: '桂林',
-            imageUrl: require('@/assets/images/guilin.png'),
-            shortDescription: '青山绿水，甲天下的风光',
+            name: '洛杉矶',
+            imageUrl: require('@/assets/images/la/santa-monica.png'),
+            shortDescription: '阳光明媚，电影之都的魅力',
         },
         {
             id: 2,
-            name: '苏州',
-            imageUrl: require('@/assets/images/suzhou.png'),
-            shortDescription: '园林之美，江南风情浓郁',
+            name: '悉尼',
+            imageUrl: require('@/assets/images/sydney.jpg'),
+            shortDescription: '悉尼歌剧院，海港大桥的壮丽景色',
         },
         {
             id: 3,
-            name: '丽江',
-            imageUrl: require('@/assets/images/lijiang.png'),
-            shortDescription: '古城魅力，纳西族文化深厚',
+            name: '北京',
+            imageUrl: require('@/assets/images/beijing.jpeg'),
+            shortDescription: '历史悠久，长城与故宫的辉煌',
         },
     ]
 }
