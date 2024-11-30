@@ -72,14 +72,14 @@ export default {
         },
       },
       geometriesOfLabel: [
-        { id: 'label_1', styleId: 'label', content: '1',  position: { lat: 40.041117253378246, lng: 116.2722415837743 } },
-        { id: 'label_2', styleId: 'label', content: '2',  position: { lat: 40.03942536171407, lng: 116.2726277820093 } },
+        // { id: 'label_1', styleId: 'label', content: '1',  position: { lat: 40.041117253378246, lng: 116.2722415837743 } },
+        // { id: 'label_2', styleId: 'label', content: '2',  position: { lat: 40.03942536171407, lng: 116.2726277820093 } },
       ],
       geometries2: [
-        { styleId: 'marker', position: { lat: 40.041117253378246, lng: 116.2722415837743 } },
-        { styleId: 'marker', position: { lat: 40.03942536171407, lng: 116.2726277820093 } },
-        { styleId: 'marker', position: { lat: 40.03970460886076, lng: 116.27483769345417 } },
-        { styleId: 'marker', position: { lat: 40.041404706498625, lng: 116.27443003983899 } },
+        // { styleId: 'marker', position: { lat: 40.041117253378246, lng: 116.2722415837743 } },
+        // { styleId: 'marker', position: { lat: 40.03942536171407, lng: 116.2726277820093 } },
+        // { styleId: 'marker', position: { lat: 40.03970460886076, lng: 116.27483769345417 } },
+        // { styleId: 'marker', position: { lat: 40.041404706498625, lng: 116.27443003983899 } },
       ],
       geometries: [
         // 普通折线
@@ -87,10 +87,10 @@ export default {
           id: 'polyline1',
           styleId: 'polyline',
           paths: [
-            { lat: 40.041117253378246, lng: 116.2722415837743 },
-            { lat: 40.03942536171407, lng: 116.2726277820093 },
-            { lat: 40.03970460886076, lng: 116.27483769345417 },
-            { lat: 40.041404706498625, lng: 116.27443003983899 },
+            // { lat: 40.041117253378246, lng: 116.2722415837743 },
+            // { lat: 40.03942536171407, lng: 116.2726277820093 },
+            // { lat: 40.03970460886076, lng: 116.27483769345417 },
+            // { lat: 40.041404706498625, lng: 116.27443003983899 },
           ],
           properties: {
             title: 'polyline',
