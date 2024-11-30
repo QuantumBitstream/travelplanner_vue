@@ -62,6 +62,7 @@ export default {
   },
   data() {
     return {
+      visiblePin: false,
       map: null,
       center: { lat: 40.040452, lng: 116.273486 },
       zoom: 16,
@@ -152,9 +153,13 @@ export default {
     },
     updatePin() {
 
+      this.visiblePin = !this.visiblePin;
+      if (this.visiblePin) {
       this.geometries2 = this.geometriesTest
       console.log('this.geometriesTest: ', this.geometriesTest)
-
+      } else {
+        this.geometries2 =[]
+      }
     },
     // 解压并转换为指定格式
     decompressAndFormatPolyline(coors) {
