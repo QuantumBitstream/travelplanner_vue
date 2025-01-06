@@ -33,7 +33,7 @@
                :class="['message-wrapper', msg.user === user ? 'message-self' : 'message-other']">
             <div class="message-content">
               <div class="message-header">
-                <span class="message-user">{{ msg.user }}</span>
+                <span class="message-user">{{ msg.user }}&nbsp;</span>
                 <span class="message-time">{{ formatTime(msg.timestamp) }}</span>
               </div>
               <div class="message-text">{{ msg.text }}</div>
