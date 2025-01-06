@@ -347,7 +347,7 @@ export default {
   border-radius: 6px;
   background-color: #f9f9f9;
   display: flex;
-  gap: 10px;
+  gap: 10px; /* 表情之间的间距 */
 }
 
 .emoji-picker span {
