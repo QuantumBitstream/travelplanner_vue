@@ -351,8 +351,8 @@ export default {
 }
 
 .emoji-picker span {
-  font-size: 24px;
-  cursor: pointer;
+  font-size: 12px; /* 设置字体大小为 24px，表情会变大 */
+  cursor: pointer; /* 鼠标悬停时显示为手型指针，表示可点击 */
 }
 
 .emoji-picker span:hover {
