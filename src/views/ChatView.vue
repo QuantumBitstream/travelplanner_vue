@@ -351,12 +351,15 @@ export default {
 }
 
 .emoji-picker span {
-  font-size: 12px; /* 设置字体大小为 24px，表情会变大 */
-  cursor: pointer; /* 鼠标悬停时显示为手型指针，表示可点击 */
+  font-size: 12px; /* 表情大小 */
+  cursor: pointer; /* 鼠标悬停时显示手型指针 */
+  transition: transform 0.2s ease, background-color 0.2s ease; /* 添加平滑的动画效果 */
 }
 
 .emoji-picker span:hover {
-  transform: scale(1.2);
+  transform: scale(1.2); /* 悬停时放大表情 */
+  background-color: #f0f0f0; /* 悬停时改变背景颜色 */
+  border-radius: 4px; /* 添加圆角效果 */
 }
 
 .send-btn {
