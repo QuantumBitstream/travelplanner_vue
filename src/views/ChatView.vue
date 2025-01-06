@@ -51,7 +51,17 @@
                 class="message-input"
             />
             <div class="input-actions">
+              <!-- 按钮触发表情选择器 -->
               <button class="emoji-btn" @click="toggleEmojiPicker">😊</button>
+
+              <!-- 表情选择器 -->
+              <div v-if="isEmojiPickerVisible" class="emoji-picker">
+                <span @click="selectEmoji('😀')">😀</span>
+                <span @click="selectEmoji('😂')">😂</span>
+                <span @click="selectEmoji('😍')">😍</span>
+                <span @click="selectEmoji('👍')">👍</span>
+              </div>
+
               <button
                   class="send-btn"
                   @click="sendUserMessage"
@@ -82,6 +92,18 @@ export default {
     const scrollTimeout = ref(null);
 
     const userInitial = computed(() => user.charAt(0));
+
+    const isEmojiPickerVisible = ref(false);  // 控制表情选择器的显示状态
+
+    const toggleEmojiPicker = () => {  // // 切换表情选择器的显示状态
+      isEmojiPickerVisible.value = !isEmojiPickerVisible.value;
+    };
+
+    const selectEmoji = (emoji) => {  // // 选择表情后的操作
+      console.log("选择的表情是:", emoji);
+      message.value += emoji; // 将表情追加到聊天框内容中
+      isEmojiPickerVisible.value = false; // 选择后关闭表情选择器
+    };
 
     const formatTime = (timestamp) => {
       const date = new Date(timestamp);
@@ -135,7 +157,10 @@ export default {
       sendUserMessage,
       formatTime,
       scrollToBottom,
-      messageContainer
+      messageContainer,
+      isEmojiPickerVisible,
+      toggleEmojiPicker,
+      selectEmoji
     };
   }
 };
