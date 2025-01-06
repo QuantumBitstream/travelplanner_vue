@@ -340,6 +340,25 @@ export default {
   transition: all 0.2s;
 }
 
+.emoji-picker {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  display: flex;
+  gap: 10px;
+}
+
+.emoji-picker span {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.emoji-picker span:hover {
+  transform: scale(1.2);
+}
+
 .send-btn {
   background: #007bff;
   color: white;
