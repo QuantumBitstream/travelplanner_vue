@@ -67,6 +67,11 @@ export const publicRoutes = [
         path: '/my-trips',
         name: 'MyTrips',
         component: () => import('@/views/MyTrips.vue')
+    },
+    {
+        path: '/chat-channel',
+        name: 'ChatChannel',
+        component: () => import('@/views/ChatView.vue')
     }
 ];
 

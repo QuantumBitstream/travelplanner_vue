@@ -57,7 +57,8 @@ export default {
         { name: '首页', path: '/' },
         { name: '目的地', path: '/destinations' },
         { name: '行程规划', path: '/trip-planner' },
-        { name: '社区', path: '/community' }
+        { name: '社区', path: '/community' },
+        { name: 'Chat', path: '/chat-channel' },
       ],
       showUserMenu: false,
       isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
