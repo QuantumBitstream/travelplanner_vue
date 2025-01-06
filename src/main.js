@@ -5,6 +5,8 @@ import ElementPlus from "element-plus";
 import TlbsMap from 'tlbs-map-vue';
 import 'element-plus/dist/index.css'
 import '@/assets/css/global.css'  // 导入eve_vue全局样式
+import '@/assets/tailwind.css'; // 引入 Tailwind CSS
+
 const app = createApp(App)
 
 
