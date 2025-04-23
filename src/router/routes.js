@@ -72,7 +72,12 @@ export const publicRoutes = [
         path: '/chat-channel',
         name: 'ChatChannel',
         component: () => import('@/views/ChatView.vue')
-    }
+    },
+    {
+        path: '/ai-chatBox',
+        name: 'ChatBox',
+        component: () => import('@/views/ChatBox.vue')
+    },
 ];
 
 // 需要权限的路由

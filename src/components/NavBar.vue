@@ -59,6 +59,7 @@ export default {
         { name: '行程规划', path: '/trip-planner' },
         { name: '社区', path: '/community' },
         { name: 'Chat', path: '/chat-channel' },
+        { name: 'AI ChatBox', path: '/ai-chatBox' },
       ],
       showUserMenu: false,
       isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
