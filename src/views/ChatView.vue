@@ -132,7 +132,7 @@ export default {
     };
 
     onMounted(() => {
-      connectWebSocket("ws://localhost:8080/chat");
+      connectWebSocket("ws://localhost:8081/chat");
 
       onMessage((msg) => {
         if (msg.user !== user) {
