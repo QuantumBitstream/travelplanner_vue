@@ -26,10 +26,10 @@ services:
       # 这样就可以 COPY . . 把代码复制进镜像里。
       context: ../travelplanner_vue
     image: ccr.ccs.tencentyun.com/travelplanner/vuecli-app-travelplanner-image:latest # 这里写镜像名
-#    depends_on:
-#      - backend
+    depends_on:
+      - backend
     ports:
-      - "8082:80"
+      - "8080:80"
     networks:
       - app-travelplanner-network
 
@@ -49,7 +49,7 @@ services:
 #      - app-stock-network
 
   backend:
-    image: sha256:453cc73c49dedb57c55ac627fe03c853a2c8da60fa5c80eb03f6084a97bd9353
+    image: ccr.ccs.tencentyun.com/travelplanner/springboot-app-travelplanner-image:latest
     user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
     depends_on:
       - db
@@ -66,7 +66,7 @@ services:
     #   SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/testdb
     # 等价于设置了环境变量，只会覆盖这几个指定的项，不会影响 application.yml 里其它没有覆盖的配置。
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/travelplanner
+      SPRING_DATASOURCE_URL: jdbc:postgres://db:5432/travelplanner
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: secret
       # java.nio.file.AccessDeniedException: /workspace/uploads, 这表示 容器内的 /workspace/uploads 目录没有写权限或者当前用户没有权限访问该目录。
@@ -80,16 +80,15 @@ services:
       - app-travelplanner-network
 
   db:
-    image: mysql:latest
+    image: ghcr.io/baosystems/postgis:latest
     environment:
-      MYSQL_ROOT_HOST: '%'
-      MYSQL_DATABASE: travelplanner
-      MYSQL_ROOT_PASSWORD: secret
+      POSTGRES_DB: travelplanner
+      POSTGRES_PASSWORD: secret
       TZ: UTC
     volumes:
-      - mysql-local:/var/lib/mysql
+      - travelplanner-pg-local:/var/lib/postgresql/data
     ports:
-      - 3302:3306
+      - "5432:5432"
     networks:
       - app-travelplanner-network
 
@@ -107,4 +106,4 @@ networks:
 
 # permanent storage of data.
 volumes:
-  mysql-local:
+  travelplanner-pg-local:
