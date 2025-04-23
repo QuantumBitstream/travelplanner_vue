@@ -1,0 +1,81 @@
+version: '3.8'
+
+
+# 理想搭配 `docker-compose.yml`，在其中直接引用你 `bootBuildImage` 生成的镜像名即可。
+# 在部署环境中，仅需拉取 docker-compose.yml 然后执行：docker-compose up -d
+services:
+  # [ compose 多服务联动 ]
+  #
+  # 服务命名互通：
+  # - 每个服务可以通过 services 下声明的名字（如 db）直接访问其它服务，无需写 IP。
+  # - 例：Spring Boot 里连 MySQL 用 jdbc:mysql://db:3306/...，db 就是 mysql 服务，容器网络自动解析。
+  # depends_on：
+  # - 声明依赖关系，确保 backend 启动前会先启动 db，但不保证 db 已完全准备好（可加健康检查提升健壮性）。
+  # 端口 mapping：
+  # - 你只需要配置对外需要暴露的端口（如 8080:8080），容器互访直接使用服务名和容器内部端口号。
+  # 网络：
+  # - Compose 默认所有服务在同个自定义网络下（Bridge 网络），服务名自动是 DNS。
+  frontend:
+    # 直接从远程仓库拉取 bootBuildImage 生成并推送的镜像
+    # 你用 bootBuildImage 命令生成镜像，并已 push 到远程仓库后，
+    # 在 docker-compose.yml 里只需直接写上完整的镜像名，无需 build，Compose 会自动从仓库拉取镜像并运行。
+    #
+    # 如果是私有仓库，确保在执行 docker-compose up 之前已登录：
+    # docker login your-registry.com
+    # 登录后的凭证通常存储在 ~/.docker/config.json，Docker Compose 会自动使用这些凭证。Compose 就能正常 pull 镜像。
+    #
+    # 不写 build: 字段，否则本地会重新 build 镜像。
+    # docker-compose up 会自动判断本地无此镜像时，从远程仓库下载。
+    # 镜像名必须和 build/push 时一致。
+    image: ccr.ccs.tencentyun.com/travelplanner/vuecli-app-travelplanner-image:latest-master
+#    depends_on:
+#      - backend
+    ports:
+      - "8080:80"
+      - "80:80"
+
+#  backend:
+#    image: ccr.ccs.tencentyun.com/travelplanner/springboot-app-travelplanner-image:latest-master
+#    user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
+#    depends_on:
+#      - db
+#    ports:
+#      - "8081:8081"
+#    # Spring Boot 的配置优先级大致如下（高→低）,高优先级覆盖低优先级：
+#    # - 命令行参数
+#    # - 环境变量
+#    # - application.yml 或 application.properties
+#    # - 代码中的默认值等
+#    #
+#    # 所以你在 docker-compose.yml 写的
+#    # environment:
+#    #   SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/testdb
+#    # 等价于设置了环境变量，只会覆盖这几个指定的项，不会影响 application.yml 里其它没有覆盖的配置。
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/travelplanner
+#      SPRING_DATASOURCE_USERNAME: root
+#      SPRING_DATASOURCE_PASSWORD: secret
+#      # java.nio.file.AccessDeniedException: /workspace/uploads, 这表示 容器内的 /workspace/uploads 目录没有写权限或者当前用户没有权限访问该目录。
+#      # 你的配置，uploads 实际就是 /workspace/uploads。只需保证这个目录存在且有写权限，并用 volumes 把主机持久化目录映射到这里，问题即可解决。
+#      # 使用 bootBuildImage 或 Maven/Gradle 的 spring-boot:build-image 任务时，生成的镜像默认使用非 root 用户 (通常是 UID 1000) 运行应用，导致无法写入 /workspace/uploads 目录。
+#      #  - 方法一: user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
+#      #  - 方法二: 修改 Dockerfile，确保目录存在并有正确权限
+#      #  - 方法三: 使用 volumes 挂载本地目录（并授权）
+#      FILE_UPLOAD_DIR: uploads
+#
+#  db:
+#    image: mysql:latest
+#    environment:
+#      MYSQL_ROOT_HOST: '%'
+#      MYSQL_DATABASE: travelplanner
+#      MYSQL_ROOT_PASSWORD: secret
+#      TZ: UTC
+#    volumes:
+#      - mysql-local:/var/lib/mysql
+#    ports:
+#      - 3302:3306
+
+
+# permanent storage of data.
+volumes:
+  mysql-local:
