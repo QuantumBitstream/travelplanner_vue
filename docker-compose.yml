@@ -1,0 +1,110 @@
+version: '3.8'
+
+
+# 在使用 docker-compose 时，容器之间的通信是通过 Docker 的 网络功能 实现的。
+# Docker Compose 默认会为同一个 docker-compose.yml 文件中的所有服务创建一个 默认网络，
+# 并且这些服务可以通过 服务名称（即 docker-compose.yml 中定义的服务名）相互通信，服务名称会自动解析为对应容器的 IP 地址
+#
+# 容器之间通信时，不需要显式暴露端口（ports），只需要确保服务监听的端口正确。
+# ports 主要用于将容器的端口暴露给宿主机，而不是用于容器间通信。
+services:
+  frontend:
+    # 如果 Spring Boot、vuecli等 镜像已用 bootBuildImage、dockerfile等 生成，可以省略 build，image 名即上一步build的名称。
+    # 不写 build: 字段，否则本地会重新 build 镜像。
+    # docker-compose up 会自动判断本地无此镜像时，从远程仓库下载。
+    # 镜像名必须和 build/push 时一致。
+    #
+    # 只要 build 字段存在，compose 会优先用本地源码和Dockerfile重新构建出镜像，而不是去远程仓库拉镜像。
+    # 一般线上/生产，只写 image 字段，保证镜像一致性和拉取提升速度。开发测试、需要自定义镜像时才用 build 字段。
+    #
+    # 最佳实践
+    # - 使用远程稳定镜像：对于 ElasticSearch、Redis、MySQL 等基础服务，直接用 image: 指定官方镜像
+    # - 开发中的应用：如果频繁修改代码，使用 build: 方便开发调试
+    # - CI/CD 管道中：构建一次镜像，推送到私有仓库，然后在生产环境只使用 image: 拉取
+    build: # 表示要用 Dockerfile 自动构建镜像。
+      # 就是让 Docker 从 vuecli-app (前端项目根目录) 目录下查找 Dockerfile 并把这个目录及内容作为构建所需文件传给 Docker 引擎。
+      # 这样就可以 COPY . . 把代码复制进镜像里。
+      context: ../travelplanner_vue
+    image: ccr.ccs.tencentyun.com/travelplanner/vuecli-app-travelplanner-image:latest # 这里写镜像名
+#    depends_on:
+#      - backend
+    ports:
+      - "8082:80"
+    networks:
+      - app-travelplanner-network
+
+#  nginx:
+#    image: nginx:latest
+#    depends_on:
+#      - frontend
+#    # 如果未显式指定，Docker 会自动生成一个容器名，格式为 项目名_服务名_序号（如 myproject_nginx_1）
+#    # 容器名仅用于调试或管理容器时使用，与服务名无关
+#    container_name: nginx-stock-container
+#    ports:
+#      - "8080:80" # 将宿主机的 8080 端口映射到容器的 80 端口
+#    volumes:
+#      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro # 挂载自定义 Nginx 配置文件, 容器内的 Nginx 可以读取宿主机挂载的文件或目录，但不能对其进行修改
+#      - ./dist:/usr/share/nginx/html:ro # 挂载静态资源目录, 容器内的 Nginx 可以读取宿主机挂载的文件或目录，但不能对其进行修改
+#    networks:
+#      - app-stock-network
+
+  backend:
+    image: sha256:453cc73c49dedb57c55ac627fe03c853a2c8da60fa5c80eb03f6084a97bd9353
+    user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
+    depends_on:
+      - db
+    ports:
+      - "8081:8081"
+    # Spring Boot 的配置优先级大致如下（高→低）,高优先级覆盖低优先级：
+    # - 命令行参数
+    # - 环境变量
+    # - application.yml 或 application.properties
+    # - 代码中的默认值等
+    #
+    # 所以你在 docker-compose.yml 写的
+    # environment:
+    #   SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/testdb
+    # 等价于设置了环境变量，只会覆盖这几个指定的项，不会影响 application.yml 里其它没有覆盖的配置。
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/travelplanner
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: secret
+      # java.nio.file.AccessDeniedException: /workspace/uploads, 这表示 容器内的 /workspace/uploads 目录没有写权限或者当前用户没有权限访问该目录。
+      # 你的配置，uploads 实际就是 /workspace/uploads。只需保证这个目录存在且有写权限，并用 volumes 把主机持久化目录映射到这里，问题即可解决。
+      # 使用 bootBuildImage 或 Maven/Gradle 的 spring-boot:build-image 任务时，生成的镜像默认使用非 root 用户 (通常是 UID 1000) 运行应用，导致无法写入 /workspace/uploads 目录。
+      #  - 方法一: user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
+      #  - 方法二: 修改 Dockerfile，确保目录存在并有正确权限
+      #  - 方法三: 使用 volumes 挂载本地目录（并授权）
+      FILE_UPLOAD_DIR: uploads
+    networks:
+      - app-travelplanner-network
+
+  db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_DATABASE: travelplanner
+      MYSQL_ROOT_PASSWORD: secret
+      TZ: UTC
+    volumes:
+      - mysql-local:/var/lib/mysql
+    ports:
+      - 3302:3306
+    networks:
+      - app-travelplanner-network
+
+# 如果你不显式定义网络，Docker Compose 会自动为所有服务创建一个默认的桥接网络（bridge）。
+# 自定义网络：通过 networks 配置，你可以创建一个自定义的桥接网络，并将服务连接到该网络
+#
+# 每个服务都连接到 app-network 自定义网络。
+# 容器可以通过服务名（如 db）互相通信，而不需要使用 IP 地址
+#
+# docker network ls  // 查看 Docker 网络
+# docker network inspect app-network  // 查看 app-network 的所有容器
+networks:
+  app-travelplanner-network:
+    driver: bridge
+
+# permanent storage of data.
+volumes:
+  mysql-local:
