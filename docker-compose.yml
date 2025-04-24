@@ -25,6 +25,7 @@ services:
       # 就是让 Docker 从 vuecli-app (前端项目根目录) 目录下查找 Dockerfile 并把这个目录及内容作为构建所需文件传给 Docker 引擎。
       # 这样就可以 COPY . . 把代码复制进镜像里。
       context: ../travelplanner_vue
+      no_cache: true                 # 禁用缓存进行构建
     image: ccr.ccs.tencentyun.com/travelplanner/vuecli-app-travelplanner-image:latest # 这里写镜像名
     depends_on:
       - backend
