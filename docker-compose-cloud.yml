@@ -28,14 +28,14 @@ services:
     # docker-compose up 会自动判断本地无此镜像时，从远程仓库下载。
     # 镜像名必须和 build/push 时一致。
     image: ccr.ccs.tencentyun.com/travelplanner/vuecli-app-travelplanner-image:latest-master
-#    depends_on:
-#      - backend
+    depends_on:
+      - backend
     ports:
       - "8080:80"
       - "80:80"
 
   backend:
-    image: ccr.ccs.tencentyun.com/travelplanner/springboot-app-travelplanner-image:latest
+    image: ccr.ccs.tencentyun.com/travelplanner/springboot-app-travelplanner-image:latest-master
     user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
     depends_on:
       - db
