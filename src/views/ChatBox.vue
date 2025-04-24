@@ -46,7 +46,7 @@ async function sendMessage() {
   loading.value = true;
 
   try {
-    const response = await axios.post('http://localhost:8080/api/ai/chat', {
+    const response = await axios.post('http://localhost:8081/api/ai/chat', {
       message: userMessage
     });
 
