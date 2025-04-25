@@ -46,7 +46,9 @@ async function sendMessage() {
   loading.value = true;
 
   try {
-    const response = await axios.post('http://localhost:8081/api/ai/chat', {
+    // HTTP 请求直接用相对路径 /api/ai/chat，axios 会自动加上当前域名
+    // const response = await axios.post('http://localhost:8081/api/ai/chat', {
+    const response = await axios.post('/api/ai/chat', {
       message: userMessage
     });
 
