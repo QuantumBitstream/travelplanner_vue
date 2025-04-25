@@ -15,6 +15,8 @@ module.exports = defineConfig({
   },
   devServer: {
     proxy: {
+      // 前端本地访问 /api/xxx，实际请求会被本地前端 devServer 代理到 http://localhost:8081/api/xxx
+      // 前端本地访问 /api/xxx，实际请求会被本地前端 devServer 代理到 https://apis.map.qq.com/api/xxx
       '/api': {
         target: 'https://apis.map.qq.com', // 替换为你的后端服务器地址
         changeOrigin: true, // 修改请求头中的 Origin 为目标地址
