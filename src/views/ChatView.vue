@@ -132,7 +132,11 @@ export default {
     };
 
     onMounted(() => {
-      connectWebSocket("ws://localhost:8081/chat");
+      // 动态获取当前访问的主机和端口，自动适应开发环境和生产环境
+      const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const wsUrl = `${wsProtocol}//${window.location.host}/chat`;
+      // connectWebSocket("ws://localhost:8081/chat");
+      connectWebSocket(wsUrl);
 
       onMessage((msg) => {
         if (msg.user !== user) {
