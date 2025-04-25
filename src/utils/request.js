@@ -32,14 +32,18 @@ const service = axios.create(
     }
 )
 
-// 配置 axios 请求 拦截器
+// 配置 axios 请求 拦截器 - 例如添加token
 service.interceptors.request.use( config => {
-
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+    }
     return config
 })
 
-// 配置 axios 返回 拦截器
+// 配置 axios 返回 拦截器 - 统一处理错误
 service.interceptors.response.use( response => {
+
 
     if (response.status === 401) {
         router.push( { name: 'Error', params : { message: '请先登录' } } );
@@ -49,7 +53,13 @@ service.interceptors.response.use( response => {
         router.push( { name: 'Error', params : { message: '没有操作权限,请联系管理员' } } );
     }
     return response
-})
+},
+    error => {
+        if (error.response && error.response.status === 401) {
+            // 处理未授权情况，如跳转登录
+        }
+        return Promise.reject(error);
+    } )
 
 
 // 导出
