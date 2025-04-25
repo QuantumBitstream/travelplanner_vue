@@ -23,7 +23,7 @@ module.exports = defineConfig({
         changeOrigin: true, // 修改请求头中的 Origin 为目标地址
         pathRewrite: { '^/api': '' }, // 重写路径，将 /api 替换为空
         secure: false // 如果使用 HTTPS 且后端证书无效，设置为 false
-      }
+      },
     }
   }
 })
