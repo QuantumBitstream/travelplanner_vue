@@ -133,6 +133,7 @@ export default {
 
     onMounted(() => {
       // 动态获取当前访问的主机和端口，自动适应开发环境和生产环境
+      // WebSocket 地址根据当前页面协议自动选择 ws 或 wss
       const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
       const wsUrl = `${wsProtocol}//${window.location.host}/chat`;
       // connectWebSocket("ws://localhost:8081/chat");
