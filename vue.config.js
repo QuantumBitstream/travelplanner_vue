@@ -24,6 +24,10 @@ module.exports = defineConfig({
         pathRewrite: { '^/api': '' }, // 重写路径，将 /api 替换为空
         secure: false // 如果使用 HTTPS 且后端证书无效，设置为 false
       },
+      // 支持对象形式写多组，只影响本地开发环境。
+      // 这个配置只对 npm run serve（开发服务器）有效。
+      // 方便本地开发时前端直接访问后端，不跨域，不受同源策略影响。
+      // 可以继续扩展更多...
     }
   }
 })
