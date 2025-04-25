@@ -51,6 +51,7 @@ async function sendMessage() {
     //
     // 这里直接用 axios.post，而不是用 request.js 创建的 service 实例
     // axios.post，不继承 service 的配置信息。这时 baseURL、timeout 等等都不生效。axios.post() 是全局方法，不依赖自定义实例。
+    // service 实例发送请求, 所有该自定义实例对应配置（如 baseURL、timeout、拦截器等）才会生效
     const response = await axios.post('/api/ai/chat', {
       message: userMessage
     });
