@@ -38,6 +38,10 @@ services:
 
   backend:
     image: ccr.ccs.tencentyun.com/travelplanner/springboot-app-travelplanner-image:latest-master
+    # fixed memory regions require 703851K which is greater than 381328K available for allocation: -XX:MaxDirectMemorySize=10M, -XX:MaxMetaspaceSize=191851K, -XX:ReservedCodeCacheSize=240M, -Xss1M * 250 threads
+    # ERROR: failed to launch: exec.d: failed to execute exec.d file at path '/layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/memory-calculator': exit status 1
+    # 1GB（开发调试），2GB 及以上用于生产环境。
+    # 只要内存高于 JVM 的请求（你当前参数合计约 700MB），就能避免该报错。
     deploy:
       resources:
         limits:
