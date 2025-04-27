@@ -43,6 +43,11 @@ services:
     # Docker 启动 Java 应用，遇到了 Paketo Buildpacks 的内存分配报错。
     # 核心信息是：JVM 总共请求了 703851K 内存，但 Docker 容器实际只分配了 381328K，导致无法启动。
     #
+    # 核心原因是：
+    #
+    # JVM 固定区域（DirectMemory、Metaspace、CodeCache、线程栈）总和大于 Docker 的“可用内存”。
+    #
+    #
     # 当前的内存分配情况
     # - 可用内存：381328K ≈ 372MB
     # - 需要的固定内存：703851K ≈ 687MB
