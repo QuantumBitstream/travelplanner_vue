@@ -38,6 +38,10 @@ services:
 
   backend:
     image: ccr.ccs.tencentyun.com/travelplanner/springboot-app-travelplanner-image:latest-master
+    deploy:
+      resources:
+        limits:
+          memory: 1G
     user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
     depends_on:
       - db
