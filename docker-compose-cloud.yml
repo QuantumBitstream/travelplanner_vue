@@ -63,6 +63,7 @@ services:
       resources:
         limits:
           # 381328K available for allocation to 1G
+          # 这应该足够解决 "fixed memory regions require 703851K which is greater than 381328K" 的错误。因为你需要至少 703851K (~700MB)，而 1G 提供了 1024MB。
           memory: 1G
     user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
     depends_on:
