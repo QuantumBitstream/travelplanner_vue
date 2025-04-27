@@ -62,6 +62,7 @@ services:
     deploy:
       resources:
         limits:
+          # 381328K available for allocation to 1G
           memory: 1G
     user: root  # 临时使用 root 用户运行（仅开发环境，生产不推荐）
     depends_on:
