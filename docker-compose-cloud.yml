@@ -40,6 +40,18 @@ services:
     image: ccr.ccs.tencentyun.com/travelplanner/springboot-app-travelplanner-image:latest-master
     # fixed memory regions require 703851K which is greater than 381328K available for allocation: -XX:MaxDirectMemorySize=10M, -XX:MaxMetaspaceSize=191851K, -XX:ReservedCodeCacheSize=240M, -Xss1M * 250 threads
     # ERROR: failed to launch: exec.d: failed to execute exec.d file at path '/layers/paketo-buildpacks_bellsoft-liberica/helper/exec.d/memory-calculator': exit status 1
+    # Docker 启动 Java 应用，遇到了 Paketo Buildpacks 的内存分配报错。
+    # 核心信息是：JVM 总共请求了 703851K 内存，但 Docker 容器实际只分配了 381328K，导致无法启动。
+    #
+    # 当前的内存分配情况
+    # - 可用内存：381328K ≈ 372MB
+    # - 需要的固定内存：703851K ≈ 687MB
+    # - 固定内存明细：
+    # - 直接内存：-XX:MaxDirectMemorySize=10M
+    # - 元空间：-XX:MaxMetaspaceSize=191851K ≈ 187MB
+    # - 代码缓存：-XX:ReservedCodeCacheSize=240M
+    # - 线程栈：-Xss1M * 250 threads = 250MB
+    #
     # 1GB（开发调试），2GB 及以上用于生产环境。
     # 只要内存高于 JVM 的请求（你当前参数合计约 700MB），就能避免该报错。
     deploy:
