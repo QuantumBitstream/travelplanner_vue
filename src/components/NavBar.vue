@@ -60,6 +60,7 @@ export default {
         { name: '社区', path: '/community' },
         { name: 'Chat', path: '/chat-channel' },
         { name: 'AI ChatBox', path: '/ai-chatBox' },
+        { name: 'WeatherStream', path: '/WeatherStream' },
       ],
       showUserMenu: false,
       isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',

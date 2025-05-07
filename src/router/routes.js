@@ -78,6 +78,11 @@ export const publicRoutes = [
         name: 'ChatBox',
         component: () => import('@/views/ChatBox.vue')
     },
+    {
+        path: '/WeatherStream',
+        name: 'WeatherStream',
+        component: () => import('@/views/WeatherStream.vue')
+    },
 ];
 
 // 需要权限的路由
