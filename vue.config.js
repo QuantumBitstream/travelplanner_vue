@@ -18,16 +18,18 @@ module.exports = defineConfig({
     proxy: {
       // 前端本地访问 /api/xxx，实际请求会被本地前端 devServer 代理到 http://localhost:8081/api/xxx
       // 前端本地访问 /api/xxx，实际请求会被本地前端 devServer 代理到 https://apis.map.qq.com/api/xxx
-      '/api': {
-        target: 'https://apis.map.qq.com', // 替换为你的后端服务器地址
+      // '/api': {
+      //   target: 'https://apis.map.qq.com', // 替换为你的后端服务器地址
+      //   changeOrigin: true, // 修改请求头中的 Origin 为目标地址
+      //   pathRewrite: { '^/api': '' }, // 重写路径，将 /api 替换为空
+      //   secure: false // 如果使用 HTTPS 且后端证书无效，设置为 false
+      // },
+      '/': {
+        target: 'http://localhost:8081', // 替换为你的后端服务器地址
         changeOrigin: true, // 修改请求头中的 Origin 为目标地址
-        pathRewrite: { '^/api': '' }, // 重写路径，将 /api 替换为空
+        pathRewrite: { '^/': '' }, // 重写路径，将 /api 替换为空
         secure: false // 如果使用 HTTPS 且后端证书无效，设置为 false
       },
-      // 支持对象形式写多组，只影响本地开发环境。
-      // 这个配置只对 npm run serve（开发服务器）有效。
-      // 方便本地开发时前端直接访问后端，不跨域，不受同源策略影响。
-      // 可以继续扩展更多...
     }
   }
 })
