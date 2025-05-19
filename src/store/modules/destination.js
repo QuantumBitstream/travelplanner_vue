@@ -2,6 +2,8 @@
 // store/modules/destination.js
 
 // 初始状态
+import {getDestinations} from "@/utils";
+
 const state = {
     destinations: [
         {
@@ -37,10 +39,21 @@ const mutations = {
 
 // actions
 const actions = {
-    fetchDestinations({ commit }) {
+    async fetchDestinations({commit}) {
         // 这里可以添加实际的API调用
         // 暂时直接返回state中的数据
-        commit('SET_DESTINATIONS', state.destinations)
+
+        try {
+            const resp = await getDestinations();
+            console.log('resp:', resp);
+            commit('SET_DESTINATIONS', resp)
+            this.setState({
+                data: resp,
+            });
+        } catch (error) {
+            console.error(error.message);
+        }
+
     }
 }
 
