@@ -14,7 +14,6 @@ module.exports = defineConfig({
     })
   },
   devServer: {
-    historyApiFallback: true,
     // 本地开发如果要调后端，推荐用 vue 的 proxy，这样不会碰到 CORS 问题
     proxy: {
       // 前端本地访问 /api/xxx，实际请求会被本地前端 devServer 代理到 http://localhost:8081/api/xxx
@@ -25,7 +24,20 @@ module.exports = defineConfig({
       //   pathRewrite: { '^/api': '' }, // 重写路径，将 /api 替换为空
       //   secure: false // 如果使用 HTTPS 且后端证书无效，设置为 false
       // },
-      '/': {
+      /**
+       *
+       * 本地 vue  刷新页面              vue.config.js
+       *
+       * This application has no explicit mapping for /error, so you are seeing this as a fallback.
+       *
+       *
+       * 此时 只改 vue.config.js 没用，因为浏览器会直接发静态请求，被 Spring Boot 拦截
+       *
+       * 你还得让 Spring Boot 做转发，把所有未命中的路由都转发到 /index.html，让前端自己解析路径。
+       *
+       * 或者 '/': { ==> '/api': {
+       */
+      '/api': {
         target: 'http://localhost:8081', // 替换为你的后端服务器地址
         changeOrigin: true, // 修改请求头中的 Origin 为目标地址
         pathRewrite: { '^/': '' }, // 重写路径，将 /api 替换为空
