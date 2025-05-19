@@ -1,4 +1,4 @@
-const domain = "http://localhost:8081"
+const domain = "http://localhost:8080"
 
 export const login = (credential) => {
     const loginUrl = `${domain}/auth/login`;
@@ -35,21 +35,4 @@ export const login = (credential) => {
 
 
 
-export const getDestinations = () => {
-    // const authToken = localStorage.getItem("authToken");
-    const listDestinations = `${domain}/api/v1/destinations`;
 
-
-    return fetch(listDestinations, {
-        headers: {
-            // Authorization: `Bearer ${authToken}`,
-        },
-    }).then((response) => {
-        if (response.status >= 300) {
-            throw Error("Fail to get Destinations list");
-        }
-
-
-        return response.json();
-    });
-};
