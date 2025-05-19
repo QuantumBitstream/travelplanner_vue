@@ -14,6 +14,7 @@ module.exports = defineConfig({
     })
   },
   devServer: {
+    historyApiFallback: true,
     // 本地开发如果要调后端，推荐用 vue 的 proxy，这样不会碰到 CORS 问题
     proxy: {
       // 前端本地访问 /api/xxx，实际请求会被本地前端 devServer 代理到 http://localhost:8081/api/xxx
