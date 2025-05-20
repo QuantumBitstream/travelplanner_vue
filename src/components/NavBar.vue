@@ -61,6 +61,7 @@ export default {
         { name: 'Chat', path: '/chat-channel' },
         { name: 'AI ChatBox', path: '/ai-chatBox' },
         { name: 'WeatherStream', path: '/WeatherStream' },
+        { name: 'PersonalRecord', path: '/PersonalRecord' },
       ],
       showUserMenu: false,
       isLoggedIn: localStorage.getItem('isLoggedIn') === 'true',
