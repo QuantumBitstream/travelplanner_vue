@@ -3,8 +3,8 @@
 /*  User 业务模块 的 子仓库  */
 
 
-// import api from '@/api'; // 引入统一的 api 入口
-import {login} from "@/utils";
+import api from '@/api'; // 引入统一的 api 入口
+// import {login} from "@/utils";
 import axios from "axios";
 
 export default {
@@ -68,7 +68,7 @@ export default {
 
             try {
                 // 添加登录API调用
-                const resp = await login(userData);
+                const resp = await api.login.login(userData);
                 console.log('Login successful:', resp.data);
                 alert('登录成功！')
 
