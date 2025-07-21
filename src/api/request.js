@@ -61,7 +61,7 @@ service.interceptors.response.use(
      */
     response => {
         const res = response.data;
-        ElMessage.success(res.message);
+        ElMessage.warning(res.message);
         if (response.status === 401) {
             router.push({name: 'Error', params: {message: '请先登录'}});
         } else if (response.status === 402) {
