@@ -33,6 +33,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import {ElMessage} from "element-plus";
 
 export default {
   name: 'LoginView',
@@ -67,6 +68,8 @@ export default {
           });
           console.log('response.json():', response);
           // 跳转到Home页面
+          // 登录成功
+          ElMessage.success('登录成功！')
           this.$router.push('/');
         } else {
           alert('请填写必填项。');
