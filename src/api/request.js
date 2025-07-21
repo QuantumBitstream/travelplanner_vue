@@ -14,7 +14,7 @@
 
 
 import axios from "axios";
-import router from "@/router";
+import router from "@/router"; // 引入 Vuex store
 
 
 const Config = require('../settings');
