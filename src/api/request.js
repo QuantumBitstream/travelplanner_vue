@@ -12,7 +12,8 @@
 
 
 import axios from "axios";
-import router from "@/router"; // 引入 Vuex store
+import router from "@/router";
+import {ElMessage} from "element-plus"; // 引入 Vuex store
 
 
 const Config = require('../settings');
@@ -54,7 +55,13 @@ service.interceptors.request.use(
 
 // 配置 axios 返回 拦截器 - 统一处理错误
 service.interceptors.response.use(
+    /**
+     * 如果你想获取诸如 headers 或 status 之类的http信息
+     * 请直接 return  response
+     */
     response => {
+        const res = response.data;
+        ElMessage.success(res.message);
         if (response.status === 401) {
             router.push({name: 'Error', params: {message: '请先登录'}});
         } else if (response.status === 402) {
