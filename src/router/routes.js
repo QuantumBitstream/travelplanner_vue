@@ -6,6 +6,8 @@
 
 // 路由 映射 列表
 // 公共路由，不需要权限
+import BookingPage from "@/views/BookingPage.vue";
+
 export const publicRoutes = [
 
     {
@@ -38,6 +40,10 @@ export const publicRoutes = [
         name: 'TripDetails',
         component: () => import('@/views/TripDetails.vue')
     },
+    {
+        path: '/booking',
+        name: 'Booking',
+        component: BookingPage },
     {
         path: '/trip-planner',
         name: 'TripPlanner',

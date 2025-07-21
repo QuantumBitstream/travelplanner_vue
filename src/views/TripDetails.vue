@@ -203,6 +203,9 @@ export default {
     handleBooking() {
       // 处理预订逻辑
       console.log('开始预订流程')
+      // 推荐用vuex存储产品详细信息，预订页直接从vuex取，这样用户刷新也不会丢失
+      this.$store.commit('booking/setBookingInfo', this.tripData)
+      this.$router.push({ name: 'Booking' })
     }
   }
 }

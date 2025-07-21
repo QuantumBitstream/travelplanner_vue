@@ -10,6 +10,7 @@ import destination from "@/store/modules/destination";
 import trip from "@/store/modules/trip";
 import community from "@/store/modules/community";
 import profile from "@/store/modules/profile";
+import booking from "@/store/modules/booking";
 
 
 
@@ -64,6 +65,7 @@ export default createStore({
         home,
         destination,
         trip,
+        booking,
         community,
     },
     getters
