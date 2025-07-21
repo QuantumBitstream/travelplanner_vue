@@ -1,5 +1,3 @@
-
-
 /*在这个文件中我们对请求和响应进行封装*/
 
 /**
@@ -45,33 +43,33 @@ const service = axios.create(
 )
 
 // 配置 axios 请求 拦截器 - 例如添加token
-service.interceptors.request.use( config => {
-    const token = localStorage.getItem('token');
-    if (token) {
-        config.headers['Authorization'] = `Bearer ${token}`;
-    }
-    return config
-})
+service.interceptors.request.use(
+    config => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config
+    })
 
 // 配置 axios 返回 拦截器 - 统一处理错误
-service.interceptors.response.use( response => {
-
-
-    if (response.status === 401) {
-        router.push( { name: 'Error', params : { message: '请先登录' } } );
-    } else if (response.status === 402) {
-        router.push( { name: 'Error', params : { message: '登录过期，请重新登陆' } } );
-    } else if (response.status === 403) {
-        router.push( { name: 'Error', params : { message: '没有操作权限,请联系管理员' } } );
-    }
-    return response
-},
+service.interceptors.response.use(
+    response => {
+        if (response.status === 401) {
+            router.push({name: 'Error', params: {message: '请先登录'}});
+        } else if (response.status === 402) {
+            router.push({name: 'Error', params: {message: '登录过期，请重新登陆'}});
+        } else if (response.status === 403) {
+            router.push({name: 'Error', params: {message: '没有操作权限,请联系管理员'}});
+        }
+        return response
+    },
     error => {
         if (error.response && error.response.status === 401) {
             // 处理未授权情况，如跳转登录
         }
         return Promise.reject(error);
-    } )
+    })
 
 
 // 导出
