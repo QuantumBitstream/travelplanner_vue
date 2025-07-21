@@ -1,5 +1,11 @@
 // src/api/modules/user.js
 
+
+/**
+ *
+ * 这里定义所有与用户相关的 API 函数。
+ * 
+ */
 import request from '@/api/request'; // 引入封装好的 axios 实例
 
 /**
