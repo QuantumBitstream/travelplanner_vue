@@ -32,7 +32,9 @@ const Config = require('../settings');
 // 创建axios实例
 const service = axios.create(
     {
-        baseURL: "/api/",
+        // 注意：baseURL 会自动拼接到请求的 URL 前面
+        // 在 .env.development 或 .env.production 中配置 VUE_APP_BASE_API
+        baseURL: process.env.VUE_APP_BASE_API || '/api/',
         // 发送 post/put/patch/delete 请求之前 对 data 参数进行统一处理
         // transformRequest(data){
         //     return qs.stringify(data)
