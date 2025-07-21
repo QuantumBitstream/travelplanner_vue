@@ -2,6 +2,12 @@
 
 /*在这个文件中我们对请求和响应进行封装*/
 
+/**
+ *
+ * 这是 API 请求的核心。我们在这里封装 axios，设置基础 URL、超时时间，并添加请求拦截器（用于携带 Token）和响应拦截器（用于统一处理错误）。
+ * 
+ */
+
 
 import axios from "axios";
 import router from "@/router";
