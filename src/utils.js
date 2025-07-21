@@ -1,4 +1,4 @@
-const domain = "http://localhost:8080"
+const domain = "http://localhost:8081"
 
 export const login = (credential) => {
     const loginUrl = `${domain}/auth/login`;

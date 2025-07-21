@@ -43,6 +43,7 @@ export default {
         username: '',
         password: ''
       },
+      btnLoading: false,
       rules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
@@ -59,18 +60,26 @@ export default {
   methods: {
     ...mapActions('user', ['login']),
     handleLogin() {
-      this.$refs.loginForm.validate( async (valid) => {
+      this.$refs.loginForm.validate(async (valid) => {
         if (valid) {
-          // 模拟登录成功
-          const response = await this.login({
-            username: this.loginForm.username,
-            password: this.loginForm.password
-          });
-          console.log('response.json():', response);
-          // 跳转到Home页面
-          // 登录成功
-          ElMessage.success('登录成功！')
-          this.$router.push('/');
+          this.btnLoading = true;
+          try {
+            // 派发vuex的login action请求登录，实际应传递至 /auth/login
+            // 模拟登录成功
+            const response = await this.login({
+              username: this.loginForm.username,
+              password: this.loginForm.password
+            });
+            console.log('response.json():', response);
+            // 跳转到Home页面
+            // 登录成功
+            ElMessage.success('登录成功！')
+            this.$router.push('/');
+          } catch (error) {
+            ElMessage.error(error.message || '登录失败，请检查用户名或密码')
+          } finally {
+            this.btnLoading = false
+          }
         } else {
           alert('请填写必填项。');
           return false;
