@@ -5,6 +5,7 @@ const state = () => ({
 const mutations = {
     setBookingInfo(state, info) {
         state.bookingInfo = info
+        console.log(" - vuex - info:", info)
     }
 }
 
