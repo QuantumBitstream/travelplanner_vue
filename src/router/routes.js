@@ -66,8 +66,8 @@ export const publicRoutes = [
     },
     {
         path: '/profile',
-        name: 'Profile',
-        component: () => import('@/views/Profile.vue')
+        name: 'ProfileView',
+        component: () => import('@/views/ProfileView.vue')
     },
     {
         path: '/my-trips',
