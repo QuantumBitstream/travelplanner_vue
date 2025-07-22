@@ -72,6 +72,10 @@
                   <el-icon><User /></el-icon>
                   个人中心
                 </el-dropdown-item>
+                <el-dropdown-item command="member">
+                  <el-icon><TrophyBase /></el-icon>
+                  会员
+                </el-dropdown-item>
                 <el-dropdown-item command="my-trips">
                   <el-icon><Notebook /></el-icon>
                   我的行程
@@ -150,6 +154,9 @@ export default {
       switch (command) {
         case 'profile':
           this.$router.push('/profile');
+          break;
+        case 'member':
+          this.$router.push('/member');
           break;
         case 'my-trips':
           this.$router.push('/my-trips');

@@ -77,6 +77,17 @@ export const publicRoutes = [
     },
 
     {
+        path: '/member',
+        name: 'MemberView',
+        component: () => import('@/views/MemberView.vue')
+    },
+    {
+        path: '/payment-details',
+        name: 'MemberComponent',
+        component: () => import('@/components/Profile/MemberComponent.vue')
+    },
+
+    {
         path: '/my-trips',
         name: 'MyTrips',
         component: () => import('@/views/MyTrips.vue')
