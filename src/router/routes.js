@@ -64,11 +64,18 @@ export const publicRoutes = [
         name: 'Register',
         component: () => import('@/views/Register.vue')
     },
+
     {
         path: '/profile',
         name: 'ProfileView',
         component: () => import('@/views/ProfileView.vue')
     },
+    {
+        path: '/payment/details/:id',
+        name: 'PaymentDetailsComponent',
+        component: () => import('@/components/Profile/PaymentDetailsComponent.vue')
+    },
+
     {
         path: '/my-trips',
         name: 'MyTrips',
