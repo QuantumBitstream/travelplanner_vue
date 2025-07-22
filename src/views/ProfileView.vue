@@ -102,6 +102,47 @@
                 </div>
               </el-form-item>
             </el-form>
+
+            <!-- 快捷功能区域 -->
+            <div class="quick-links">
+              <h3>快捷功能</h3>
+              <el-row :gutter="20">
+                <el-col :span="8">
+                  <el-card shadow="hover" class="quick-card" @click="goToPayment">
+                    <template #header>
+                      <div class="card-header">
+                        <i class="el-icon-wallet"></i>
+                        <span>支付管理</span>
+                      </div>
+                    </template>
+                    <div class="card-body">查看订单和支付详情</div>
+                  </el-card>
+                </el-col>
+                <el-col :span="8">
+                  <el-card shadow="hover" class="quick-card">
+                    <template #header>
+                      <div class="card-header">
+                        <i class="el-icon-lock"></i>
+                        <span>安全设置</span>
+                      </div>
+                    </template>
+                    <div class="card-body">更改密码和安全选项</div>
+                  </el-card>
+                </el-col>
+                <el-col :span="8">
+                  <el-card shadow="hover" class="quick-card">
+                    <template #header>
+                      <div class="card-header">
+                        <i class="el-icon-bell"></i>
+                        <span>消息通知</span>
+                      </div>
+                    </template>
+                    <div class="card-body">管理系统消息和提醒</div>
+                  </el-card>
+                </el-col>
+              </el-row>
+            </div>
+            
           </el-tab-pane>
 
           <!-- 最近交易标签页 -->
