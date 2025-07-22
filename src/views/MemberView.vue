@@ -78,7 +78,7 @@
             </el-card>
           </el-col>
           <el-col :span="8">
-            <el-card shadow="hover" class="quick-card">
+            <el-card shadow="hover" class="quick-card" @click="goToSecurity">
               <template #header>
                 <div class="card-header">
                   <i class="el-icon-lock"></i>
@@ -89,7 +89,7 @@
             </el-card>
           </el-col>
           <el-col :span="8">
-            <el-card shadow="hover" class="quick-card">
+            <el-card shadow="hover" class="quick-card" @click="goToNotifications">
               <template #header>
                 <div class="card-header">
                   <i class="el-icon-bell"></i>
@@ -192,6 +192,20 @@ const resetForm = () => {
  */
 const goToPayment = () => {
   router.push('/payment-details')
+}
+
+/**
+ * 跳转到安全设置页
+ */
+const goToSecurity = () => {
+  router.push('/security-settings')
+}
+
+/**
+ * 跳转到消息通知页
+ */
+const goToNotifications = () => {
+  router.push('/notifications')
 }
 
 // 组件挂载时加载用户资料

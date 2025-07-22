@@ -86,6 +86,16 @@ export const publicRoutes = [
         name: 'MemberComponent',
         component: () => import('@/components/Profile/MemberComponent.vue')
     },
+    {
+        path: '/security-settings',
+        name: 'SecuritySettingsComponent',
+        component: () => import('@/components/Profile/SecuritySettingsComponent.vue')
+    },
+    {
+        path: '/notifications',
+        name: 'NotificationsComponent',
+        component: () => import('@/components/Profile/NotificationsComponent.vue')
+    },
 
     {
         path: '/my-trips',
