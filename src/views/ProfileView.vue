@@ -54,6 +54,7 @@
         <el-tabs v-model="activeTab" type="border-card">
           <!-- 基本资料标签页 -->
           <el-tab-pane label="基本资料" name="basic">
+            <el-divider>个人资料信息</el-divider>
             <el-form
                 :model="profileForm"
                 :rules="rules"
@@ -142,7 +143,7 @@
                 </el-col>
               </el-row>
             </div>
-            
+
           </el-tab-pane>
 
           <!-- 最近交易标签页 -->
