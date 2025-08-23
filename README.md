@@ -4,7 +4,7 @@
 
 # Travel Planner
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE)
 
 Travel Planner 是一个使用 Vue.js 构建的现代化前端项目，旨在帮助用户轻松计划和管理旅行。它提供了一个直观的界面，让用户可以创建行程、添加目的地、记录笔记和预算，并与朋友分享。
 
@@ -111,7 +111,7 @@ yarn build
 
 ## 📝 许可证
 
-本项目使用 [MIT](https://opensource.org/licenses/MIT) 许可证。
+本项目使用 [Apache 2.0](https://opensource.org/licenses/apache-2-0) 许可证。
 
 ---
 
