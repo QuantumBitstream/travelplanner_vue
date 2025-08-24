@@ -39,6 +39,11 @@ git clone https://github.com/QuantumBitstream/travelplanner_vue.git
 cd travel-planner
 ```
 
+|          | Repository                                       |
+|----------|--------------------------------------------------|
+| Backend  | https://github.com/QuantumBitstream/travelplanner_cloud.git |
+| Frontend | https://github.com/QuantumBitstream/travelplanner_vue.git |
+
 **2. 安装依赖**
 
 推荐使用 `pnpm` 进行安装：
