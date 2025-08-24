@@ -92,7 +92,7 @@ yarn build
 
 
 **首页:**
-![首页截图](https://via.placeholder.com/800x400.png?text=Homepage+Screenshot)
+![首页截图](src/assets/images/screenshot/homePage.png)
 
 **行程详情页:**
 ![行程详情页截图](https://via.placeholder.com/800x400.png?text=Trip+Detail+Screenshot)
