@@ -23,7 +23,7 @@
               :loading="loading"
               @click="startStream"
           >
-            开始监听
+            开始查询
           </el-button>
           <el-button @click="stopStream" :disabled="!connected">
             停止

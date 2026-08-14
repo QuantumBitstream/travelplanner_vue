@@ -9,14 +9,22 @@
       <router-view />
     </div>
   </div>
+
+  <div>
+    <!--    footer 整个项目固定的部分-->
+    <FooterComponent></FooterComponent>
+
+  </div>
 </template>
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import FooterComponent from "@/components/FooterComponent.vue";
 
 export default {
   name: 'App',
   components: {
+    FooterComponent,
     NavBar
   }
 }
