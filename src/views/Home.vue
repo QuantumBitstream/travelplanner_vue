@@ -140,7 +140,7 @@ export default {
           imageUrl: require('@/assets/images/jiangnan.png'),
           description: '探索江南古镇，感受水乡文化',
           duration: 4,
-          price: 2999
+          price: 0
         },
         {
           id: 2,
@@ -148,7 +148,7 @@ export default {
           imageUrl: require('@/assets/images/yunnan.png'),
           description: '体验多彩民族文化，领略自然风光',
           duration: 6,
-          price: 3999
+          price: 0
         },
         {
           id: 3,
@@ -156,7 +156,7 @@ export default {
           imageUrl: require('@/assets/images/tibet.png'),
           description: '探访神秘西藏，感受心灵净化',
           duration: 8,
-          price: 5999
+          price: 0
         }
       ]
     }
